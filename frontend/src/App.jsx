@@ -24,7 +24,7 @@ const roles = [
 
 function App() {
   return (
-    <div className="app-shell">
+    <div className="app-shell bg-page text-text">
       <header className="site-header">
         <a className="brand" href="/" aria-label="CPRMP home">
           <span className="brand-mark">C</span>
