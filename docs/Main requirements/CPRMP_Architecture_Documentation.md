@@ -11,7 +11,7 @@
 - Language: JavaScript
 - Styling: Tailwind CSS
 - Backend: Node.js + Express.js
-- Database: MySQL
+- Database: MongoDB + Mongoose
 - Authentication: JWT + bcrypt
 - AI Module: Python + Scikit-learn
 - Version Control: Git + GitHub
@@ -28,12 +28,12 @@
 | **API Layer** | Express.js | Handle HTTP requests and API routes |
 | **Backend** | Node.js | Application server and business logic |
 | **Authentication** | JWT + bcrypt | Authentication, password security, and authorization |
-| **Database** | MySQL | Persistent application data |
+| **Database** | MongoDB Community Server | Mongoose (ODM) |
 | **AI Module** | Python + Scikit-learn | Resume–job matching and skill-gap analysis |
 | **File Storage** | Server/cloud file storage | Student resume/document storage |
 | **Testing** | Postman + Jest/Supertest | API and application testing |
 | **Version Control** | Git + GitHub | Source-code management |
-| **Deployment** | Vercel + Render/Railway + MySQL | Application deployment |
+| **Deployment** | Proposed: Vercel + Render/Railway + MongoDB-compatible database deployment; final provider undecided | Application deployment |
 
 ---
 
@@ -75,7 +75,7 @@
                     ┌────────────┘       └──────────────┐
                     ↓                                   ↓
           ┌──────────────────┐                ┌──────────────────┐
-          │     MySQL        │                │   AI Module      │
+          │     MongoDB      │                │   AI Module      │
           │    Database      │                │ Python + ML/NLP  │
           └──────────────────┘                └────────┬─────────┘
                                                        │
@@ -109,7 +109,7 @@ Service / Business Logic
   ↓
 Database Repository / Model
   ↓
-MySQL
+MongoDB + Mongoose
   ↓
 Service
   ↓
@@ -147,7 +147,7 @@ Duplicate Application Check
    ↓
 Save Application
    ↓
-MySQL
+MongoDB + Mongoose
    ↓
 Application Response
    ↓
@@ -247,7 +247,7 @@ The frontend is responsible for:
 - Handling navigation.
 - Showing loading/error/success states.
 
-The frontend **must not directly access MySQL**.
+The frontend **must not directly access MongoDB**.
 
 ---
 
@@ -315,7 +315,7 @@ AIMatchingService
 
 ### Database Layer
 
-The database layer communicates with MySQL.
+The database layer communicates with MongoDB through Mongoose. Mongoose models define document schemas and support validation and database operations. All database access must occur in the backend.
 
 It should handle:
 
@@ -442,7 +442,7 @@ Check Duplicate Application
    ↓
 Create Application
    ↓
-MySQL
+MongoDB
    ↓
 Application Status
 ```
@@ -502,7 +502,24 @@ AI Match Score
 
 # 13. Database Architecture
 
-MySQL will store the core application data.
+CPRMP will use **MongoDB** as its primary database, with **Mongoose** as the Object Data Modeling (ODM) library for Node.js and Express.
+
+MongoDB will store the core application data, including:
+
+- Student profiles and academic information
+- Company and recruiter information
+- Placement drives and eligibility criteria
+- Student applications and application statuses
+- Shortlisting, selection, and placement records
+- Resume file references and related metadata
+
+Mongoose will define and validate data models, enforce schema-level rules, and support database operations through the backend.
+
+The Express backend will be responsible for all database interactions. The React frontend must communicate with the backend API and must never connect directly to MongoDB.
+
+The database connection string will be configured through the `MONGODB_URI` environment variable. Credentials and other sensitive connection details must be kept in environment variables and must not be committed to the repository.
+
+MongoDB will store resume metadata and file references. The actual resume files will remain in backend-controlled file storage rather than being stored directly in the database.
 
 Major entities include:
 
@@ -540,93 +557,114 @@ Resume + PlacementDrive
 
 # 14. File Storage Architecture
 
-Student resumes should not be stored directly inside normal relational database fields as binary data.
+Student resumes must not be stored directly as binary data inside MongoDB documents. Instead, CPRMP will store resume files in backend-controlled file storage and maintain their file references and related metadata in MongoDB.
+
+This approach separates file storage from application data and allows the backend to manage file uploads, validation, access, and retrieval.
 
 Recommended flow:
 
 ```text
 Student
-   ↓
+  ->
 Upload Resume
-   ↓
+  ->
 Backend Validation
-   ↓
+  ->
 File Storage
-   ↓
+  ->
 Store File Reference / Path
-   ↓
-MySQL
+  ->
+MongoDB
 ```
+The database stores the resume's file reference or path and related metadata, such as the original filename, content type, and other necessary information.
 
-The database stores the resume's reference/path and related metadata.
+The Express backend must control resume uploads and access. The frontend must communicate with the backend API rather than accessing the file storage or database directly.
+
+Resume files must be validated before being accepted. The backend should enforce permitted file types and file-size limits, generate safe storage names, and prevent unauthorized users from accessing another student's resume.
+
+Sensitive file paths and storage details should not be exposed unnecessarily to the frontend. The backend must verify authorization before allowing a resume to be viewed or downloaded.
 
 ---
 
 # 15. Folder Structure
 
-The project should use separate frontend, backend, and AI directories:
+The following tree reflects the verified current project structure. It excludes generated dependencies, build output, and local environment files. Planned feature directories are documented separately and must not be represented as existing until they are created.
 
-```text
+The AI module is deferred until all Student, Recruiter, and Admin portal pages and their core workflows have been implemented, integrated, tested, and reviewed. Until then, do not create ai-module/ or implement AI matching logic. Official eligibility and recruitment workflows must operate independently of AI.
+
 cprmp/
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── layouts/
-│   │   ├── features/
-│   │   ├── services/
-│   │   ├── hooks/
-│   │   ├── context/
-│   │   ├── utils/
-│   │   ├── types/
-│   │   ├── assets/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   │
-│   ├── public/
-│   ├── package.json
-│   └── vite.config.js
-│
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   ├── routes/
-│   │   ├── controllers/
-│   │   ├── services/
-│   │   ├── models/
-│   │   ├── middleware/
-│   │   ├── validators/
-│   │   ├── utils/
-│   │   └── app.js
-│   │
-│   ├── uploads/
-│   ├── package.json
-│   └── server.js
-│
-├── ai-module/
-│   ├── app/
-│   │   ├── services/
-│   │   ├── models/
-│   │   ├── utils/
-│   │   └── main.py
-│   │
-│   ├── requirements.txt
-│   └── README.md
-│
-├── docs/
-│   ├── PRD.md
-│   ├── ARCHITECTURE.md
-│   ├── API.md
-│   └── DATABASE.md
-│
-├── .gitignore
-├── README.md
-└── LICENSE
-```
+|-- frontend/
+|   |-- public/
+|   |-- src/
+|   |   |-- App.css
+|   |   |-- App.jsx
+|   |   |-- index.css
+|   |   `-- main.jsx
+|   |-- .gitignore
+|   |-- eslint.config.js
+|   |-- index.html
+|   |-- package.json
+|   |-- package-lock.json
+|   |-- README.md
+|   `-- vite.config.js
+|
+|-- backend/
+|   |-- src/
+|   |   |-- config/
+|   |   |   |-- .gitkeep
+|   |   |   `-- db.js
+|   |   |-- controllers/
+|   |   |   `-- .gitkeep
+|   |   |-- middleware/
+|   |   |   |-- .gitkeep
+|   |   |   `-- errorHandler.js
+|   |   |-- models/
+|   |   |   `-- .gitkeep
+|   |   |-- routes/
+|   |   |   `-- .gitkeep
+|   |   |-- services/
+|   |   |   `-- .gitkeep
+|   |   |-- utils/
+|   |   |   `-- .gitkeep
+|   |   |-- validators/
+|   |   |   `-- .gitkeep
+|   |   |-- app.js
+|   |   `-- server.js
+|   |-- .env.example
+|   |-- jest.config.js
+|   |-- package.json
+|   `-- package-lock.json
+|
+|-- docs/
+|   `-- Main requirements/
+|       |-- CPRMP_PRD.md
+|       |-- CPRMP_Architecture_Documentation.md
+|       |-- CPRMP_Design_System_Documentation.md
+|       |-- CPRMP_Architecture_Decisions.md
+|       |-- CPRMP_AI_Development_Rules.md
+|       |-- CPRMP_Development_Tasks.md
+|       |-- CPRMP_Environment_Variables.md
+|       |-- CPRMP_Security_Requirements.md
+|       |-- CPRMP_Test_Plan.md
+|       `-- CPRMP_MEMORY.md
+|
+|-- .gitignore
+`-- README.md
+
+Future planned structure — do not create yet:
+
+ai-module/
+|-- app/
+|   |-- services/
+|   |-- models/
+|   |-- utils/
+|   `-- main.py
+|-- requirements.txt
+`-- README.md
+
+JavaScript convention: The frontend currently uses JavaScript and JSX. Do not add a types/ directory solely for TypeScript definitions. If shared runtime validation or JSDoc conventions are introduced later, document them separately.
 
 ---
-
 # 16. Frontend Folder Responsibilities
 
 ```text
@@ -656,8 +694,8 @@ context/
 utils/
     Frontend helper functions
 
-types/
-    Shared frontend type definitions
+types/ (optional; not currently used)
+    Only add if a documented need for shared type definitions arises
 
 assets/
     Images and static assets
@@ -699,6 +737,8 @@ utils/
 
 # 18. AI Module Responsibilities
 
+> **Deferred implementation:** This is a future planned structure, not part of the current implementation. Do not create `ai-module/` or implement AI matching logic until all Student, Recruiter, and Admin portal pages and their core workflows have been implemented, integrated, tested, and reviewed.
+
 ```text
 ai-module/
 
@@ -716,6 +756,8 @@ app/
 ```
 
 The AI module should remain separate from the main React frontend.
+
+Official eligibility and recruitment workflows must operate independently of AI. AI outputs are assistive recommendations and must never override official eligibility decisions.
 
 ---
 
@@ -945,7 +987,7 @@ Do not allow large uncommitted changes to accumulate.
               ┌───────┴────────┐
               ↓                ↓
         ┌───────────┐   ┌────────────┐
-        │   MySQL   │   │ AI Module  │
+        │  MongoDB  │   │ AI Module  │
         │ Database  │   │ Python     │
         └───────────┘   └────────────┘
 ```
@@ -978,7 +1020,7 @@ The exact deployment provider can be finalized during implementation.
 └───────────────┬─────────────────────┬───────────┘
                 ↓                     ↓
        ┌────────────────┐    ┌──────────────────┐
-       │     MySQL      │    │   AI MODULE      │
+       │     MongoDB    │    │   AI MODULE      │
        │    Database    │    │ Python + ML/NLP  │
        └────────────────┘    └──────────────────┘
 ```

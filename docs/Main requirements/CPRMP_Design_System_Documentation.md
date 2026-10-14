@@ -427,6 +427,8 @@ Table rules:
 
 # 15. AI Matching UI
 
+> **Deferred implementation:** This UI is planned for a later phase. Do not implement AI matching until all Student, Recruiter, and Admin portal pages and their core workflows have been implemented, integrated, tested, and reviewed. Until then, official eligibility and recruitment workflows must operate independently of AI.
+
 AI results should be visually separated from official eligibility.
 
 Example:

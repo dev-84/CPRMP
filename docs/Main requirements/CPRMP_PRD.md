@@ -84,6 +84,8 @@ CPRMP provides:
 
 **Important:** AI matching is only an assistive feature. It does not override the official eligibility rules.
 
+**Implementation timing:** AI model development and matching logic are deferred until all Student, Recruiter, and Admin portal pages and their core workflows have been implemented, integrated, tested, and reviewed. Until then, keep AI as a planned feature. Core eligibility and recruitment workflows must work independently of AI.
+
 ---
 
 # 5. Core Functional Modules

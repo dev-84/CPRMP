@@ -17,11 +17,11 @@
 
 # 2. Current Status
 
-**Overall Status:** TASK-001 through TASK-006 completed and committed/pushed. TASK-007 implementation and verification completed; final review and commit/push pending.
+**Overall Status:** TASK-001 through TASK-007 completed, verified, committed, and pushed. TASK-008 documentation review is in progress.
 
 **Current Phase:** Phase 1 — Project Setup
 
-**Current Task / Next Step:** Review TASK-007 changes, commit and push them, then proceed to TASK-008 — Create Project Documentation.
+**Current Task / Next Step:** Complete TASK-008 documentation review, verify the final changes, then commit and push the reviewed documentation.
 
 **Current Development Module:** Frontend foundation, backend foundation, MongoDB connection, and development tooling configured and verified.
 
@@ -37,7 +37,7 @@
 - TASK-004 — Completed, verified, committed, and pushed
 - TASK-005 — Completed, verified, committed, and pushed
 - TASK-006 — Completed, verified, committed, and pushed
-- TASK-007 — Implementation and verification completed; final review and commit/push pending
+- TASK-007 — Completed, verified, committed, and pushed (`7886dc4`).
 
 ### Project Planning
 
@@ -76,7 +76,7 @@
 
 ### Development Rules
 
-- `RULES.md` prepared
+- `CPRMP_AI_Development_Rules.md` prepared
 - Cursor/AI development rules defined
 - Security rules defined
 - Testing rules defined
@@ -85,14 +85,14 @@
 
 ### Task Planning
 
-- `TASKS.md` prepared
+- `CPRMP_Development_Tasks.md` prepared
 - Development phases defined
 - Task-by-task implementation plan created
 - Task workflow defined
 
 ### Technical Decisions
 
-- `DECISIONS.md` prepared
+- `CPRMP_Architecture_Decisions.md` prepared
 - Frontend technology selected
 - Backend technology selected
 - Database selected
@@ -166,9 +166,9 @@ The planned MVP contains:
 
 # 7. Current Task
 
-## TASK-007 — Configure Development Tools
+## TASK-007 - Configure Development Tools
 
-**Status:** Implementation and verification completed; final review and commit/push pending.
+**Status:** Completed, verified, committed, and pushed. Latest commit: `7886dc4` - `chore: configure development tools`.
 
 **Verified:**
 - Existing frontend ESLint configuration retained; frontend lint had previously passed.
@@ -182,7 +182,7 @@ The planned MVP contains:
 - Local `backend/.env` remains ignored by Git.
 - `git diff --check` reported no whitespace errors; line-ending warnings were informational.
 
-**Remaining:** Review the final changes, update and verify documentation, stage only intended files, commit, push, and verify the remote.
+**Remaining:** TASK-007 is complete. TASK-008 documentation review, verification, commit, and push remain in progress.
 
 
 ---
@@ -191,7 +191,7 @@ The planned MVP contains:
 
 ### Current
 
-- TASK-007 implementation and verification are complete; final review and commit/push remain pending.
+- TASK-008 documentation review is in progress; its checklist remains pending until the required documents have been reviewed and verified.
 - Postman created local workspace metadata under `.postman/`; review these files before deciding whether to commit them.
 
 ### Documentation Note
@@ -224,24 +224,27 @@ The planned MVP contains:
 
 # 10. Documentation Status
 
-| Document          | Status | Purpose                       |
-| ----------------- | ------ | ----------------------------- |
-| `PRD.md`          | Ready  | WHAT + WHY                    |
-| `ARCHITECTURE.md` | Ready  | HOW it works                  |
-| `CPRMP_Design_System_Documentation.md` | Ready | HOW it looks/feels |
-| `DESIGN.md`       | Not present | Referenced by older planning documentation |
-| `RULES.md`        | Ready  | Development rules             |
-| `TASKS.md`        | Ready  | Implementation roadmap        |
-| `DECISIONS.md`    | Ready  | Permanent technical decisions |
-| `MEMORY.md`       | Active | Current project state         |
-
+| Document | Status | Purpose |
+| --- | --- | --- |
+| CPRMP_PRD.md | Ready | Product requirements (WHAT + WHY) |
+| CPRMP_Architecture_Documentation.md | Ready | System architecture (HOW it works) |
+| CPRMP_Design_System_Documentation.md | Ready | UI design system and visual behavior |
+| CPRMP_AI_Development_Rules.md | Ready | AI and development rules |
+| CPRMP_Development_Tasks.md | Active | Implementation roadmap |
+| CPRMP_Architecture_Decisions.md | Active | Technical architecture decisions |
+| CPRMP_MEMORY.md | Active | Current project state and continuity |
+| CPRMP_Environment_Variables.md | Ready | Environment configuration reference |
+| CPRMP_Security_Requirements.md | Ready | Security requirements |
+| CPRMP_Test_Plan.md | Ready | Testing strategy and verification plan |
+| CPRMP_Architecture_Decisions.md.bak | Backup - retain until final review | Temporary backup of architecture decisions |
+| DESIGN.md | Not present | Older planning reference; use the existing design system document |
 ---
 
 # 11. Next Step
 
 Complete the current task:
 
-**Finish TASK-007 final review, commit and push the verified changes, then start TASK-008 — Create Project Documentation.**
+**Complete TASK-008 documentation review, verify the final changes, then stage only intended files, commit, push, and verify the remote.**
 
 ---
 
@@ -315,11 +318,11 @@ CPRMP
                               ↓
                     TASK-007 — Configure
                     Development Tools
-                    verified; commit/push pending
+                    verified, committed, and pushed
                               │
                               ↓
-                    TASK-008 — Create Project
-                    Documentation (next)
+                    TASK-008 - Documentation Review
+                    in progress
 ```
 
 **MEMORY.md = CURRENT STATE, not permanent decisions.

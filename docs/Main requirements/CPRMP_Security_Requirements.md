@@ -209,11 +209,11 @@ Never commit real values.
 
 # 7. Database Security
 
-CPRMP uses **MySQL**.
+CPRMP uses **MongoDB with Mongoose**.
 
 Database access must be controlled through the backend.
 
-The React frontend must never connect directly to MySQL.
+The React frontend must never connect directly to MongoDB.
 
 ```text
 React Frontend
@@ -222,7 +222,7 @@ Express API
       ↓
 Backend Services
       ↓
-MySQL
+MongoDB
 ```
 
 ## Requirements
@@ -463,7 +463,7 @@ You are not authorized to access this resource.
 ## Do Not Expose
 
 ```text
-MySQL connection password = ...
+MongoDB connection URI = ...
 ```
 
 ```text
@@ -592,7 +592,7 @@ Frontend controls improve user experience, but backend controls provide actual s
 ## Requirements
 
 - [ ] Do not store secrets in frontend source code.
-- [ ] Do not connect directly from React to MySQL.
+- [ ] Do not connect directly from React to MongoDB.
 - [ ] Do not rely only on hidden UI elements for authorization.
 - [ ] Backend authorization must protect every sensitive operation.
 - [ ] Do not expose unnecessary user information.

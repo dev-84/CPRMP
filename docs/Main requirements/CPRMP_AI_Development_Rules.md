@@ -12,7 +12,7 @@
 - Language: JavaScript
 - Styling: Tailwind CSS
 - Backend: Node.js + Express.js
-- Database: MySQL
+- Database: MongoDB
 - Authentication: JWT + bcrypt
 - AI Module: Python + Scikit-learn / NLP
 - Testing: Jest + Supertest + Postman
@@ -25,23 +25,23 @@
 Before implementing any feature, follow this documentation hierarchy:
 
 ```text
-PRD.md
+CPRMP_PRD.md
    ↓
-ARCHITECTURE.md
+CPRMP_Architecture_Documentation.md
    ↓
-DESIGN.md
+CPRMP_Design_System_Documentation.md
    ↓
-RULES.md
+CPRMP_AI_Development_Rules.md
    ↓
 Implementation
 ```
 
 ### Rules
 
-- `PRD.md` defines **WHAT** the system should do and **WHY**.
-- `ARCHITECTURE.md` defines **HOW** the system is technically structured.
-- `DESIGN.md` defines **HOW the application should look and feel**.
-- `RULES.md` defines **HOW AI-assisted development must be performed**.
+- `CPRMP_PRD.md` defines **WHAT** the system should do and **WHY**.
+- `CPRMP_Architecture_Documentation.md` defines **HOW** the system is technically structured.
+- `CPRMP_Design_System_Documentation.md` defines **HOW the application should look and feel**.
+- `CPRMP_AI_Development_Rules.md` defines **HOW AI-assisted development must be performed**.
 - Do not implement features that contradict these documents.
 - Do not silently add major features that are not defined in the project scope.
 - If a requested feature conflicts with the documentation, identify the conflict before implementing it.
@@ -173,7 +173,7 @@ assets/
 
 # 7. UI Rules
 
-All frontend implementation must follow `DESIGN.md`.
+All frontend implementation must follow `CPRMP_Design_System_Documentation.md`.
 
 ### Visual System
 
@@ -370,12 +370,12 @@ Do not implement important business rules directly inside React components.
 
 # 13. Database Rules
 
-Use **MySQL** for persistent application data.
+Use **MongoDB** for persistent application data, with **Mongoose** as the ODM.
 
 ### Rules
 
 - Database operations belong in the backend.
-- Frontend must never connect directly to MySQL.
+- The frontend must never connect directly to MongoDB; all database access must go through the backend using Mongoose.
 - Use appropriate relationships between entities.
 - Avoid unnecessary duplicate data.
 - Validate data before saving.
@@ -586,6 +586,18 @@ It must not:
 - Override Recruiter decisions.
 
 AI output should be clearly presented as a recommendation.
+
+### AI Implementation Timing
+
+AI model development is deferred until all Student, Recruiter, and Admin portal pages and their core workflows have been implemented, integrated, tested, and reviewed.
+
+Before that stage:
+- Do not implement the AI model or AI matching logic.
+- Do not create the `ai-module/` directory.
+- Keep AI matching as a planned feature in documentation and UI planning.
+- Ensure official eligibility and recruitment workflows operate independently of AI.
+
+Begin AI implementation only after the core portal workflows are complete and verified.
 
 ---
 
@@ -881,14 +893,18 @@ Keep project documentation updated when architecture or behavior changes.
 Important documents:
 
 ```text
-docs/
-├── PRD.md
-├── ARCHITECTURE.md
-├── DESIGN.md
-├── API.md
-└── DATABASE.md
+docs/Main requirements/
+|-- CPRMP_PRD.md
+|-- CPRMP_Architecture_Documentation.md
+|-- CPRMP_Design_System_Documentation.md
+|-- CPRMP_Architecture_Decisions.md
+|-- CPRMP_AI_Development_Rules.md
+|-- CPRMP_Development_Tasks.md
+|-- CPRMP_Environment_Variables.md
+|-- CPRMP_Security_Requirements.md
+|-- CPRMP_Test_Plan.md
+`-- CPRMP_MEMORY.md
 ```
-
 Documentation must reflect the actual implementation.
 
 Do not claim a feature is implemented if it is only planned.
@@ -957,7 +973,7 @@ A feature is not considered complete until:
 - [ ] Relevant documentation has been checked.
 - [ ] Existing implementation has been inspected.
 - [ ] Code follows project architecture.
-- [ ] UI follows `DESIGN.md`.
+- [ ] UI follows `CPRMP_Design_System_Documentation.md`.
 - [ ] Authentication/authorization is handled where required.
 - [ ] Input validation is implemented.
 - [ ] Loading state is handled where applicable.
@@ -994,16 +1010,16 @@ Maintainable
 # 36. Quick Reference
 
 ```text
-PRD.md
+CPRMP_PRD.md
 → WHAT + WHY
 
-ARCHITECTURE.md
+CPRMP_Architecture_Documentation.md
 → HOW IT WORKS
 
-DESIGN.md
+CPRMP_Design_System_Documentation.md
 → HOW IT LOOKS + FEELS
 
-RULES.md
+CPRMP_AI_Development_Rules.md
 → HOW AI/DEVELOPERS MUST BUILD IT
 ```
 

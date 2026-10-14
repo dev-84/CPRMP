@@ -38,23 +38,15 @@ CLIENT_URL=[http://localhost:5173](http://localhost:5173)
 
 # =========================================
 
-# Database — MySQL
+# Database - MongoDB
 
 # =========================================
 
-DB_HOST=localhost
+# Local MongoDB Community Server
 
-DB_PORT=3306
+MONGODB_URI=mongodb://127.0.0.1:27017/cprmp
 
-DB_NAME=cprmp
-
-DB_USER=your_database_username
-
-DB_PASSWORD=your_database_password
-
-# =========================================
-
-# Authentication — JWT
+# Authentication - JWT
 
 # =========================================
 

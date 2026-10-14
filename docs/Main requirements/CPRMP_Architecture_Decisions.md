@@ -143,6 +143,8 @@ The frontend must never connect directly to MySQL.
 
 All database operations must go through the backend.
 
+**Historical status:** The MySQL selection in this ADR is superseded by ADR-023. MongoDB + Mongoose is the current database choice.
+
 ---
 
 # ADR-006 — Authentication
@@ -222,7 +224,7 @@ Services / Business Logic
       ↓
 Database Layer
       ↓
-MySQL
+MongoDB + Mongoose
 ```
 
 ## Reason
@@ -405,7 +407,7 @@ The system must:
 
 - Validate uploaded files.
 - Validate file size/type.
-- Store file references in MySQL.
+- Store file references and related metadata in MongoDB.
 - Protect access to private student documents.
 
 Resume files must not be placed inside the React source code.
@@ -544,7 +546,7 @@ Use:
 ```text
 Frontend → Vercel
 Backend  → Render / Railway
-Database → MySQL-compatible deployment
+Database → MongoDB-compatible deployment
 ```
 
 The exact provider can be finalized during deployment.
@@ -696,7 +698,7 @@ Do not silently overwrite an architectural decision.
 | Language | JavaScript |
 | Styling | Tailwind CSS |
 | Backend | Node.js + Express.js |
-| Database | MySQL |
+| Database | MongoDB + Mongoose |
 | Authentication | JWT + bcrypt |
 | AI | Python + Scikit-learn / NLP |
 | API | REST |
@@ -718,7 +720,7 @@ Node.js + Express
       ↓
 REST APIs
       ↓
-MySQL
+MongoDB + Mongoose
 
 Python AI Module
       ↓
@@ -739,4 +741,47 @@ Cursor
 AI-Assisted Development
 ```
 
-**DECISIONS.md = WHY WE CHOSE THE TECHNICAL APPROACH AND WHAT MUST NOT CHANGE RANDOMLY.**
+**CPRMP_Architecture_Decisions.md = WHY WE CHOSE THE TECHNICAL APPROACH AND WHAT MUST NOT CHANGE RANDOMLY.**
+
+---
+
+# ADR-023 - Adopt MongoDB + Mongoose
+
+## Status
+
+Accepted
+
+## Context
+
+ADR-005 selected MySQL as the primary application database. CPRMP's current implementation uses MongoDB with Mongoose, and the local MongoDB connection has been tested. This decision records the change so the architecture documentation matches the implementation.
+
+## Decision
+
+Use MongoDB as the primary application database and Mongoose as the Node.js ODM. All database access must remain in the backend, and the frontend must communicate with the backend through REST APIs.
+
+This decision supersedes the MySQL selection in ADR-005. ADR-005 remains as a historical record.
+
+## Reason
+
+- The current backend is configured to use MongoDB and Mongoose.
+- The local database connection has been tested.
+- Retaining the implementation avoids an unnecessary database migration during the MVP.
+
+## Consequences
+
+1. MongoDB and Mongoose are the authoritative database choices.
+2. Architecture, file-storage, deployment, and technology-stack documentation must be updated accordingly.
+3. Resume files remain in backend-controlled file storage. MongoDB stores file references and related metadata.
+4. Database access remains in the backend; eligibility rules remain deterministic, and AI recommendations remain assistive.
+5. The deployment provider must support MongoDB. The final provider remains undecided.
+6. This decision does not authorize creating the deferred AI module early.
+
+## Affected Decisions
+
+- ADR-005: The MySQL selection is retained as historical context and superseded by this ADR.
+- ADR-008: The architecture diagram now identifies MongoDB + Mongoose.
+- ADR-014: Resume file references and related metadata are stored in MongoDB; resume files remain in backend-controlled file storage.
+- ADR-019: The deployment database must be MongoDB-compatible; the provider remains undecided.
+- Current Technology Stack and Decision Summary: both identify MongoDB + Mongoose.
+
+The related architecture documentation must be reviewed for consistency before this documentation task is considered complete.
