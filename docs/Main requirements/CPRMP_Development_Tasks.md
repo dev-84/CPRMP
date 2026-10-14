@@ -51,14 +51,14 @@ Next Task
 
 ## TASK-001 — Initialize Project
 
-- [ ] Create `cprmp` root directory
-- [ ] Initialize Git repository
-- [ ] Create GitHub repository
-- [ ] Connect local repository to GitHub
-- [ ] Create initial `README.md`
-- [ ] Create `.gitignore`
-- [ ] Create `docs/` directory
-- [ ] Initial Git commit
+- [x] Create `cprmp` root directory
+- [x] Initialize Git repository
+- [x] Create GitHub repository
+- [x] Connect local repository to GitHub
+- [x] Create initial `README.md`
+- [x] Create `.gitignore`
+- [x] Create `docs/` directory
+- [x] Initial Git commit
 
 **Test:**
 
@@ -71,12 +71,12 @@ git remote -v
 
 ## TASK-002 — Create Project Structure
 
-- [ ] Create `frontend/`
-- [ ] Create `backend/`
+- [x] Create `frontend/`
+- [x] Create `backend/`
 - [ ] Create `ai-module/`
-- [ ] Create `docs/`
-- [ ] Create required source directories
-- [ ] Verify folder structure
+- [x] Create `docs/`
+- [x] Create required source directories
+- [x] Verify folder structure
 
 Expected:
 
@@ -94,11 +94,11 @@ cprmp/
 
 ## TASK-003 — Initialize React Frontend
 
-- [ ] Create React + Vite application
-- [ ] Configure frontend package
-- [ ] Verify development server
-- [ ] Remove unnecessary starter code
-- [ ] Create basic application structure
+- [x] Create React + Vite application
+- [x] Configure frontend package
+- [x] Verify development server
+- [x] Remove unnecessary starter code
+- [x] Create basic application structure
 
 **Test:**
 
@@ -110,13 +110,15 @@ npm run dev
 
 ## TASK-004 — Configure Tailwind CSS
 
-- [ ] Configure Tailwind CSS
-- [ ] Configure project styling
-- [ ] Add design-system colors
-- [ ] Configure typography
-- [ ] Verify Tailwind classes
+- [x] Configure Tailwind CSS v4 with the Vite plugin
+- [x] Configure project styling entry point
+- [x] Add design-system color, typography, and radius tokens
+- [x] Verify Tailwind utility classes
+- [x] Run ESLint and production build
 
-Follow `DESIGN.md`.
+**Verified:** Tailwind CSS `4.3.3`, `@tailwindcss/vite` `4.3.3`. ESLint passed, production build passed, and browser rendering was checked.
+
+**Follow-up:** Align landing-page accents with the documented indigo palette and review primary-action contrast in a separate styling task.
 
 ---
 
@@ -139,18 +141,21 @@ GET /api/health
 
 ---
 
-## TASK-006 — Configure MySQL
+## TASK-006 — Configure MongoDB
 
-- [ ] Create MySQL database
-- [ ] Configure database connection
-- [ ] Create database configuration
-- [ ] Add database environment variables
-- [ ] Test connection
+- [ ] Confirm MongoDB Community Server is installed and running
+- [ ] Verify the local MongoDB connection using MongoDB Compass or `mongosh`
+- [ ] Install and configure Mongoose in the backend
+- [ ] Create the database connection module
+- [ ] Add the MongoDB connection string to backend environment variables
+- [ ] Connect the Express application to MongoDB
+- [ ] Handle connection success and failure safely
+- [ ] Verify the connection from the backend
 
 **Test:**
 
 ```text
-Backend → MySQL
+Backend → MongoDB through Mongoose
 Connection successful
 ```
 
@@ -169,11 +174,11 @@ Connection successful
 
 ## TASK-008 — Create Project Documentation
 
-- [ ] Add `PRD.md`
-- [ ] Add `ARCHITECTURE.md`
-- [ ] Add `DESIGN.md`
-- [ ] Add `RULES.md`
-- [ ] Add `TASKS.md`
+- [ ] Verify the existing `CPRMP_PRD.md`
+- [ ] Verify the existing `CPRMP_Architecture_Documentation.md`
+- [ ] Verify the existing `CPRMP_Design_System_Documentation.md`
+- [ ] Verify the existing `CPRMP_AI_Development_Rules.md`
+- [ ] Verify the existing `CPRMP_Development_Tasks.md`
 - [ ] Verify documentation consistency
 
 ---
@@ -198,30 +203,32 @@ Create the initial schema for:
 
 ---
 
-## TASK-010 — Create Database Tables
+## TASK-010 — Create MongoDB Models and Collections
 
-- [ ] Create User table
-- [ ] Create StudentProfile table
-- [ ] Create Resume table
-- [ ] Create RecruiterProfile table
-- [ ] Create Company table
-- [ ] Create PlacementDrive table
-- [ ] Create EligibilityCriteria table
-- [ ] Create Application table
-- [ ] Create RecruitmentStatus table
-- [ ] Create PlacementHistory table
-- [ ] Create AIMatchResult table
+- [ ] Create User Mongoose model/collection
+- [ ] Create StudentProfile model/collection
+- [ ] Create Resume model/collection
+- [ ] Create RecruiterProfile model/collection
+- [ ] Create Company model/collection
+- [ ] Create PlacementDrive model/collection
+- [ ] Create EligibilityCriteria model/collection
+- [ ] Create Application model/collection
+- [ ] Create RecruitmentStatus model/collection
+- [ ] Create PlacementHistory model/collection
+- [ ] Create AIMatchResult model/collection
+- [ ] Verify collections are created as documents are inserted
 
 ---
 
-## TASK-011 — Configure Database Relationships
+## TASK-011 — Configure MongoDB References, Validation, and Indexes
 
-- [ ] Define primary keys
-- [ ] Define foreign keys
-- [ ] Define unique constraints
-- [ ] Define required fields
-- [ ] Verify relationships
-- [ ] Test sample queries
+- [ ] Define document identifiers and Mongoose references where appropriate
+- [ ] Decide which relationships use references and which use embedded documents
+- [ ] Define unique indexes where required (for example, user email)
+- [ ] Define required fields and Mongoose schema validation
+- [ ] Add indexes for frequently queried fields where justified
+- [ ] Verify references and validation behavior
+- [ ] Test sample queries and duplicate prevention
 
 ---
 
@@ -1105,11 +1112,11 @@ When asking Cursor to implement a task, use this structure:
 TASK-XXX: <Task Name>
 
 Read these documents first:
-- PRD.md
-- ARCHITECTURE.md
-- DESIGN.md
-- RULES.md
-- TASKS.md
+- CPRMP_PRD.md
+- CPRMP_Architecture_Documentation.md
+- CPRMP_Design_System_Documentation.md
+- CPRMP_AI_Development_Rules.md
+- CPRMP_Development_Tasks.md
 
 Objective:
 <Describe exactly what this task should accomplish.>
@@ -1121,9 +1128,9 @@ Requirements:
 
 Constraints:
 - Do not modify unrelated files.
-- Follow ARCHITECTURE.md.
-- Follow DESIGN.md.
-- Follow RULES.md.
+- Follow CPRMP_Architecture_Documentation.md.
+- Follow CPRMP_Design_System_Documentation.md.
+- Follow CPRMP_AI_Development_Rules.md.
 - Reuse existing functionality.
 - Do not implement future tasks.
 
