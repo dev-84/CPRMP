@@ -147,23 +147,36 @@ npm run dev
 
 ---
 
+
 ## TASK-006 — Configure MongoDB
 
-- [ ] Confirm MongoDB Community Server is installed and running
-- [ ] Verify the local MongoDB connection using MongoDB Compass or `mongosh`
-- [ ] Install and configure Mongoose in the backend
-- [ ] Create the database connection module
-- [ ] Add the MongoDB connection string to backend environment variables
-- [ ] Connect the Express application to MongoDB
-- [ ] Handle connection success and failure safely
-- [ ] Verify the connection from the backend
+- [x] Confirm MongoDB Community Server is installed and running
+- [x] Verify the local MongoDB connection using `mongosh`
+- [x] Install and configure Mongoose in the backend
+- [x] Create the database connection module
+- [x] Add the MongoDB connection string to backend environment variables
+- [x] Connect the Express application to MongoDB
+- [x] Handle connection success and failure safely
+- [x] Verify the connection from the backend
 
-**Test:**
+**Completion Verification:**
 
-```text
-Backend → MongoDB through Mongoose
-Connection successful
-```
+- [x] MongoDB service confirmed running
+- [x] Local connection verified using `mongosh`
+- [x] Mongoose 9.11.2 installed
+- [x] Backend connected successfully to MongoDB
+- [x] Express starts only after a successful database connection
+- [x] Health endpoint returned `status: ok`
+- [x] Unknown route returned HTTP 404
+- [x] JavaScript syntax checks passed
+- [x] Local `.env` confirmed ignored by Git
+- [x] Implementation staged and staged diff checks passed
+
+**Note:** MongoDB access control is disabled in the current local setup. This configuration is for local development only, not production.
+
+**Status:** Implementation and runtime verification completed; commit and push pending.
+
+**Git Commit:** Pending
 
 ---
 
