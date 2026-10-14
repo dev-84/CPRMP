@@ -17,11 +17,11 @@
 
 # 2. Current Status
 
-**Overall Status:** TASK-001 through TASK-007 completed, verified, committed, and pushed. TASK-008 documentation review is in progress.
+**Overall Status:** TASK-001 through TASK-008 completed, verified, committed, and pushed. TASK-008 completion bookkeeping remains to be committed and pushed.
 
 **Current Phase:** Phase 1 — Project Setup
 
-**Current Task / Next Step:** Complete TASK-008 documentation review, verify the final changes, then commit and push the reviewed documentation.
+**Current Task / Next Step:** Finish TASK-008 bookkeeping by updating and verifying project memory, then commit, push, and verify the remote.
 
 **Current Development Module:** Frontend foundation, backend foundation, MongoDB connection, and development tooling configured and verified.
 
@@ -38,6 +38,7 @@
 - TASK-005 — Completed, verified, committed, and pushed
 - TASK-006 — Completed, verified, committed, and pushed
 - TASK-007 — Completed, verified, committed, and pushed (`7886dc4`).
+- TASK-008 — Completed, verified, committed, and pushed (`273d0af`).
 
 ### Project Planning
 
@@ -182,7 +183,7 @@ The planned MVP contains:
 - Local `backend/.env` remains ignored by Git.
 - `git diff --check` reported no whitespace errors; line-ending warnings were informational.
 
-**Remaining:** TASK-007 is complete. TASK-008 documentation review, verification, commit, and push remain in progress.
+**Remaining:** TASK-007 is complete. TASK-008 documentation review, commit, push, and remote verification are complete. Only TASK-008 completion bookkeeping remains.
 
 
 ---
@@ -191,7 +192,7 @@ The planned MVP contains:
 
 ### Current
 
-- TASK-008 documentation review is in progress; its checklist remains pending until the required documents have been reviewed and verified.
+- TASK-008 documentation review, consistency checks, commit, push, and remote verification completed. Commit: `273d0af` — `docs: align project documentation with current architecture`.
 - Postman created local workspace metadata under `.postman/`; review these files before deciding whether to commit them.
 
 ### Documentation Note
@@ -244,7 +245,7 @@ The planned MVP contains:
 
 Complete the current task:
 
-**Complete TASK-008 documentation review, verify the final changes, then stage only intended files, commit, push, and verify the remote.**
+**keep the next-step instruction focused on proceeding to the next task in CPRMP_Development_Tasks.md, since TASK-008 is complete.**
 
 ---
 
