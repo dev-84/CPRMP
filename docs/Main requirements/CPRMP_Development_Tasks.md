@@ -119,11 +119,10 @@ npm run dev
 **Verified:** Tailwind CSS `4.3.3`, `@tailwindcss/vite` `4.3.3`. ESLint passed, production build passed, and browser rendering was checked.
 
 **Follow-up:** Align landing-page accents with the documented indigo palette and review primary-action contrast in a separate styling task.
+
 ---
 
 ## TASK-005 — Initialize Node.js Backend
-
-**Status:** Backend foundation implemented and verified; pending final commit and push.
 
 - [x] Initialize backend package
 - [x] Install Express
@@ -133,18 +132,18 @@ npm run dev
 - [x] Configure environment variables
 - [x] Add centralized error handling
 
-**Verification Notes:**
+**Completion Verification:**
 
-- `GET http://127.0.0.1:5000/api/health` returned `200 OK` with the expected JSON response.
-- `GET http://127.0.0.1:5000/api/not-a-real-route` returned HTTP 404 with a JSON error response.
-- `node --check` passed for `src/server.js`, `src/app.js`, and `src/middleware/errorHandler.js`.
-- Express and dotenv are installed.
-- `.env.example` is present; no actual `.env` file was found.
+- [x] Implementation and manual API checks passed
+- [x] JavaScript syntax checks passed
+- [x] Git commit created
+- [x] Push to `origin/main` verified
+- [x] Working tree confirmed clean
 - MongoDB connectivity has not been configured or verified as part of this task.
 
-**Task Completion Gate:**
+**Status:** Completed — implementation, verification, Git commit, and remote push confirmed.
 
-Do not consider TASK-005 fully complete until the final Git commit and remote push are verified.
+**Git Commit:** `1a62ebb` — `feat: initialize Express backend`
 
 ---
 

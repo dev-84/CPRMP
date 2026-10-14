@@ -17,7 +17,7 @@
 
 # 2. Current Status
 
-**Overall Status:** Project setup, frontend foundation, and backend foundation are implemented and verified through TASK-005. TASK-005 is pending final commit and remote push verification.
+**Overall Status:** Project setup, frontend foundation, and backend foundation are implemented, verified, committed, and pushed through TASK-005. MongoDB connectivity remains unverified.
 
 **Current Phase:** Phase 1 — Project Setup
 
@@ -35,6 +35,7 @@
 - TASK-002 — Completed and verified
 - TASK-003 — Completed and verified
 - TASK-004 — Completed and verified
+- TASK-005 — Completed and verified
 
 ### Project Planning
 
@@ -142,7 +143,7 @@ The planned MVP contains:
 | Module                 | Status      |
 | ---------------------- | ----------- |
 | Project Setup          | Completed   |
-| Backend Foundation     | Implemented; commit/push pending |
+| Backend Foundation     | Completed   |
 | Database               | Not Started |
 | Authentication         | Not Started |
 | Student Profile        | Not Started |
@@ -163,21 +164,9 @@ The planned MVP contains:
 
 # 7. Current Task
 
-## TASK-005 — Initialize Node.js Backend
+## TASK-006 — Configure MongoDB
 
-**Status:** Backend foundation implemented and verified; pending final commit and remote push verification. This task is not yet marked fully completed.
-
-### Verified Results
-
-- `GET http://127.0.0.1:5000/api/health` returned `200 OK` with the expected JSON response.
-- An unknown route returned `404` with a JSON error response.
-- `node --check` passed for `src/server.js`, `src/app.js`, and `src/middleware/errorHandler.js`.
-- Express and dotenv are installed.
-- `.env.example` is present, and no actual `.env` file was found.
-
-### Database Status
-
-MongoDB connectivity has not yet been configured or verified. Continue with TASK-006.
+**Status:** Not started. First verify the local MongoDB installation and connection, then configure Mongoose and connect the backend. Do not claim database connectivity until a real connection test succeeds.
 
 ---
 
@@ -185,9 +174,8 @@ MongoDB connectivity has not yet been configured or verified. Continue with TASK
 
 ### Current
 
-- TASK-005 backend foundation is implemented and verified; final commit and remote push still need verification.
 - MongoDB/Mongoose connection is not yet configured or verified.
-- Preserve these as open items until the corresponding checks are completed.
+- TASK-006 must verify the local MongoDB connection before backend database integration is implemented.
 
 ### Documentation Note
 
