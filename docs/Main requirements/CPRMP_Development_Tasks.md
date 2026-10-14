@@ -182,12 +182,19 @@ npm run dev
 
 ## TASK-007 — Configure Development Tools
 
-- [ ] Configure ESLint if required
-- [ ] Configure formatting rules
-- [ ] Configure Postman
-- [ ] Configure Jest/Supertest
-- [ ] Verify Node.js environment
-- [ ] Verify Python environment
+- [x] Configure ESLint if required — existing frontend ESLint configuration retained; frontend lint previously passed
+- [x] Configure formatting rules — root `.editorconfig` added
+- [x] Configure Postman — `CPRMP API Tests` collection created with the `Health Check` request
+- [x] Configure Jest/Supertest — Jest configured in `backend/jest.config.js`; test script added to `backend/package.json`
+- [x] Verify Node.js environment — Node.js v24.14.1 and npm v11.11.0; JavaScript execution verified
+- [x] Verify Python environment — Python 3.14.3 available through both `python` and `py`
+
+**Verification completed so far:**
+- `npm test --prefix .\backend` — 2 integration tests passed (health endpoint and unknown-route 404).
+- Postman `GET http://localhost:5000/api/health` — HTTP 200 with the expected JSON response.
+- `git diff --check` — no whitespace errors; line-ending warnings were reported.
+
+**Remaining:** Review final changes, stage intended files, commit and push, and verify the remote.
 
 ---
 

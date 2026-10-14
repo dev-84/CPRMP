@@ -1,4 +1,4 @@
-﻿# Dependencies
+# Dependencies
 node_modules/
 
 # Environment secrets
@@ -25,3 +25,6 @@ Thumbs.db
 
 # Editor-local settings
 .vscode/
+
+# Local Postman workspace metadata
+.postman/
