@@ -17,13 +17,13 @@
 
 # 2. Current Status
 
-**Overall Status:** Project setup and frontend initialization have begun. TASK-001 through TASK-004 are completed and verified. Implementation is in progress.
+**Overall Status:** Project setup, frontend foundation, and backend foundation are implemented and verified through TASK-005. TASK-005 is pending final commit and remote push verification.
 
 **Current Phase:** Phase 1 — Project Setup
 
-**Current Task:** TASK-005 — Initialize Node.js Backend
+**Current Task / Next Step:** TASK-006 — Configure MongoDB with Mongoose
 
-**Current Development Module:** Frontend foundation complete; backend initialization next
+**Current Development Module:** Frontend foundation complete; backend foundation complete and verified; database connection not yet configured or verified
 
 ---
 
@@ -142,6 +142,7 @@ The planned MVP contains:
 | Module                 | Status      |
 | ---------------------- | ----------- |
 | Project Setup          | Completed   |
+| Backend Foundation     | Implemented; commit/push pending |
 | Database               | Not Started |
 | Authentication         | Not Started |
 | Student Profile        | Not Started |
@@ -164,20 +165,19 @@ The planned MVP contains:
 
 ## TASK-005 — Initialize Node.js Backend
 
-### Objective
+**Status:** Backend foundation implemented and verified; pending final commit and remote push verification. This task is not yet marked fully completed.
 
-Initialize the Node.js/Express backend using the approved CPRMP structure and MongoDB/Mongoose stack.
+### Verified Results
 
-### Required Work
+- `GET http://127.0.0.1:5000/api/health` returned `200 OK` with the expected JSON response.
+- An unknown route returned `404` with a JSON error response.
+- `node --check` passed for `src/server.js`, `src/app.js`, and `src/middleware/errorHandler.js`.
+- Express and dotenv are installed.
+- `.env.example` is present, and no actual `.env` file was found.
 
-- Initialize or verify `backend/package.json`
-- Configure the basic Express server and development scripts
-- Add `GET /api/health`
-- Verify the endpoint returns `200 OK` using the configured local backend URL
+### Database Status
 
-### Next Verification Target
-
-`GET /api/health` returns `200 OK`.
+MongoDB connectivity has not yet been configured or verified. Continue with TASK-006.
 
 ---
 
@@ -185,7 +185,9 @@ Initialize the Node.js/Express backend using the approved CPRMP structure and Mo
 
 ### Current
 
-- Backend initialization is the next task. Verify that `GET /api/health` returns `200 OK`.
+- TASK-005 backend foundation is implemented and verified; final commit and remote push still need verification.
+- MongoDB/Mongoose connection is not yet configured or verified.
+- Preserve these as open items until the corresponding checks are completed.
 
 ### Documentation Note
 
@@ -234,11 +236,9 @@ Initialize the Node.js/Express backend using the approved CPRMP structure and Mo
 
 Complete the current task:
 
-**TASK-005 — Initialize Node.js Backend**
+**TASK-006 — Configure MongoDB with Mongoose**
 
-Next verification target:
-
-`GET /api/health` returns `200 OK`.
+Configure the MongoDB connection through Mongoose and verify it from the backend. Do not claim connectivity until the actual connection test succeeds.
 
 ---
 
@@ -307,8 +307,8 @@ CPRMP
  └── Implementation        → In Progress
                               │
                               ↓
-                          TASK-005
-                    Initialize Node.js Backend
+                          TASK-006
+                    Configure MongoDB with Mongoose
 ```
 
 **MEMORY.md = CURRENT STATE, not permanent decisions.
