@@ -221,46 +221,46 @@ npm run dev
 
 Create the initial schema for:
 
-- [ ] User
-- [ ] StudentProfile
-- [ ] Resume
-- [ ] RecruiterProfile
-- [ ] Company
-- [ ] PlacementDrive
-- [ ] EligibilityCriteria
-- [ ] Application
-- [ ] RecruitmentStatus
-- [ ] PlacementHistory
-- [ ] AIMatchResult
+- [x] User
+- [x] StudentProfile
+- [x] Resume
+- [x] RecruiterProfile
+- [x] Company
+- [x] PlacementDrive
+- [x] EligibilityCriteria
+- [x] Application
+- [x] RecruitmentStatus
+- [x] PlacementHistory
+- [x] AIMatchResult
 
 ---
 
 ## TASK-010 — Create MongoDB Models and Collections
 
-- [ ] Create User Mongoose model/collection
-- [ ] Create StudentProfile model/collection
-- [ ] Create Resume model/collection
-- [ ] Create RecruiterProfile model/collection
-- [ ] Create Company model/collection
-- [ ] Create PlacementDrive model/collection
-- [ ] Create EligibilityCriteria model/collection
-- [ ] Create Application model/collection
-- [ ] Create RecruitmentStatus model/collection
-- [ ] Create PlacementHistory model/collection
-- [ ] Create AIMatchResult model/collection
-- [ ] Verify collections are created as documents are inserted
+- [x] Create User Mongoose model/collection
+- [x] Create StudentProfile model/collection
+- [x] Create Resume model/collection
+- [x] Create RecruiterProfile model/collection
+- [x] Create Company model/collection
+- [x] Create PlacementDrive model/collection
+- [x] Create EligibilityCriteria model/collection
+- [x] Create Application model/collection
+- [x] Create RecruitmentStatus model/collection
+- [x] Create PlacementHistory model/collection
+- [x] Create AIMatchResult model/collection
+- [x] Verify collections are created as documents are inserted
 
 ---
 
 ## TASK-011 — Configure MongoDB References, Validation, and Indexes
 
-- [ ] Define document identifiers and Mongoose references where appropriate
-- [ ] Decide which relationships use references and which use embedded documents
-- [ ] Define unique indexes where required (for example, user email)
-- [ ] Define required fields and Mongoose schema validation
-- [ ] Add indexes for frequently queried fields where justified
-- [ ] Verify references and validation behavior
-- [ ] Test sample queries and duplicate prevention
+- [x] Define document identifiers and Mongoose references where appropriate
+- [x] Decide which relationships use references and which use embedded documents
+- [x] Define unique indexes where required (for example, user email)
+- [x] Define required fields and Mongoose schema validation
+- [x] Add indexes for frequently queried fields where justified
+- [x] Verify references and validation behavior
+- [x] Test sample queries and duplicate prevention
 
 ---
 
