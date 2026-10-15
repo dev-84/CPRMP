@@ -296,12 +296,10 @@ Create the initial schema for:
 
 ## TASK-014 — Create Role Authorization
 
-Implement:
-
-- [ ] Student authorization
-- [ ] Admin authorization
-- [ ] Recruiter authorization
-- [ ] Resource ownership checks
+- [x] Student authorization
+- [x] Admin authorization
+- [x] Recruiter authorization
+- [x] Resource ownership checks
 
 ---
 
