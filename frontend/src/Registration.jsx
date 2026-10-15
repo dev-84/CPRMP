@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-function Registration({ onBack, onSignIn }) {
+function Registration() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -95,25 +97,17 @@ function Registration({ onBack, onSignIn }) {
   return (
     <main className="login-page">
       <section className="login-card" aria-labelledby="registration-heading">
-        <button className="login-back-link" type="button" onClick={onBack}>
-          Back to home
-        </button>
+        <Link className="login-back-link" to="/">
+          ← Back to home
+        </Link>
 
-        <a
-          className="login-brand"
-          href="#home"
-          onClick={(event) => {
-            event.preventDefault();
-            onBack();
-          }}
-          aria-label="CPRMP home"
-        >
+        <Link className="login-brand" to="/" aria-label="CPRMP home">
           <span className="brand-mark">C</span>
           <span>
             <strong>CPRMP</strong>
             <small>Campus Placement Portal</small>
           </span>
-        </a>
+        </Link>
 
         <p className="eyebrow login-eyebrow">JOIN CPRMP</p>
         <h1 id="registration-heading">Create your account</h1>
@@ -212,7 +206,7 @@ function Registration({ onBack, onSignIn }) {
               <button
                 className="login-back-link"
                 type="button"
-                onClick={onSignIn}
+                onClick={() => navigate("/login")}
               >
                 Go to sign in
               </button>
@@ -226,9 +220,9 @@ function Registration({ onBack, onSignIn }) {
 
         <p className="login-note">
           Already have an account?{" "}
-          <button className="login-back-link" type="button" onClick={onSignIn}>
+          <Link className="login-back-link" to="/login">
             Sign in
-          </button>
+          </Link>
         </p>
       </section>
     </main>
