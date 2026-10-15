@@ -286,11 +286,11 @@ Create the initial schema for:
 
 ## TASK-013 — Create Authentication Middleware
 
-- [ ] Create JWT middleware
-- [ ] Verify tokens
-- [ ] Extract user identity
-- [ ] Handle invalid tokens
-- [ ] Handle expired tokens
+- [x] Create JWT middleware
+- [x] Verify tokens
+- [x] Extract user identity
+- [x] Handle invalid tokens
+- [x] Handle expired tokens
 
 ---
 
