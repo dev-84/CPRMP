@@ -467,3 +467,36 @@
     padding: 26px 22px;
   }
 }
+
+.login-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid var(--border, #d8dee8);
+  border-radius: 10px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.login-field select:focus {
+  outline: 2px solid var(--primary, #3157a4);
+  outline-offset: 2px;
+}
+
+.login-back-link {
+  border: 0;
+  background: transparent;
+  color: var(--primary, #3157a4);
+  font: inherit;
+  cursor: pointer;
+}
+
+.login-back-link:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.login-success-message {
+  overflow-wrap: anywhere;
+}

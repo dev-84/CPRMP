@@ -1,34 +1,55 @@
-
-import { useState } from 'react'
-import './App.css'
-import Login from './Login.jsx'
+import { useState } from "react";
+import "./App.css";
+import Login from "./Login.jsx";
+import Registration from "./Registration.jsx";
 
 const roles = [
   {
-    title: 'Student',
+    title: "Student",
     description:
-      'Build your placement profile, review eligible drives, and track your applications.',
-    label: 'For students',
+      "Build your placement profile, review eligible drives, and track your applications.",
+    label: "For students",
   },
   {
-    title: 'Placement Officer',
+    title: "Placement Officer",
     description:
-      'Manage student records, recruitment drives, eligibility rules, and placement progress.',
-    label: 'For administrators',
+      "Manage student records, recruitment drives, eligibility rules, and placement progress.",
+    label: "For administrators",
   },
   {
-    title: 'Recruiter',
+    title: "Recruiter",
     description:
-      'Explore eligible applicants, manage recruitment activities, and update selection outcomes.',
-    label: 'For recruiters',
+      "Explore eligible applicants, manage recruitment activities, and update selection outcomes.",
+    label: "For recruiters",
   },
-]
+];
 
 function App() {
-  const [showLogin, setShowLogin] = useState(false)
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegistration, setShowRegistration] = useState(false);
 
   if (showLogin) {
-    return <Login onBack={() => setShowLogin(false)} />
+  return (
+    <Login
+      onBack={() => setShowLogin(false)}
+      onRegister={() => {
+        setShowLogin(false)
+        setShowRegistration(true)
+      }}
+    />
+  )
+}
+
+  if (showRegistration) {
+    return (
+      <Registration
+        onBack={() => setShowRegistration(false)}
+        onSignIn={() => {
+          setShowRegistration(false);
+          setShowLogin(true);
+        }}
+      />
+    );
   }
 
   return (
@@ -53,6 +74,13 @@ function App() {
           >
             Sign in
           </button>
+          <button
+            className="nav-login"
+            type="button"
+            onClick={() => setShowRegistration(true)}
+          >
+            Create account
+          </button>
         </nav>
       </header>
 
@@ -64,8 +92,8 @@ function App() {
             <span> starts here.</span>
           </h1>
           <p className="hero-description">
-            A central place for students, placement officers, and recruiters
-            to coordinate campus recruitment and placement activities.
+            A central place for students, placement officers, and recruiters to
+            coordinate campus recruitment and placement activities.
           </p>
           <a className="primary-link" href="#roles">
             Explore the portal <span aria-hidden="true">→</span>
@@ -88,7 +116,9 @@ function App() {
                 <span className="role-label">{role.label}</span>
                 <h3>{role.title}</h3>
                 <p>{role.description}</p>
-                <span className="coming-soon">Access will be available later</span>
+                <span className="coming-soon">
+                  Access will be available later
+                </span>
               </article>
             ))}
           </div>
@@ -109,7 +139,7 @@ function App() {
         <span>Campus Placement and Recruitment Management Portal</span>
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

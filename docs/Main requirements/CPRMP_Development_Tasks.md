@@ -317,12 +317,12 @@ Create the initial schema for:
 
 ## TASK-016 — Create Registration UI
 
-- [ ] Create registration page
-- [ ] Add required fields
-- [ ] Add validation
-- [ ] Connect registration API
-- [ ] Handle success state
-- [ ] Handle error state
+- [x] Create registration page
+- [x] Add required fields
+- [x] Add validation
+- [x] Connect registration API
+- [x] Handle success state
+- [x] Handle error state
 
 ---
 
