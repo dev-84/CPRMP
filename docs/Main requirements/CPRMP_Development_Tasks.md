@@ -266,15 +266,21 @@ Create the initial schema for:
 
 # Phase 3 — Authentication & Role Management
 
+
 ## TASK-012 — Create User Authentication Backend
 
-- [ ] Create User model/repository
-- [ ] Create registration service
-- [ ] Implement bcrypt password hashing
-- [ ] Implement login service
-- [ ] Implement JWT generation
-- [ ] Create authentication routes
-- [ ] Add validation
+- [x] Create User model/repository
+- [x] Create registration service
+- [x] Implement bcrypt password hashing
+- [x] Implement login service
+- [x] Implement JWT generation
+- [x] Create authentication routes
+- [x] Add validation
+- [x] Add unit and integration tests
+- [x] Verify password byte-length validation
+- [x] Verify public registration cannot create admin accounts
+- [x] Verify duplicate email handling
+- [x] Run full test suite successfully
 
 ---
 
