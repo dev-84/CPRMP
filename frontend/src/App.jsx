@@ -1,5 +1,7 @@
 
+import { useState } from 'react'
 import './App.css'
+import Login from './Login.jsx'
 
 const roles = [
   {
@@ -23,6 +25,12 @@ const roles = [
 ]
 
 function App() {
+  const [showLogin, setShowLogin] = useState(false)
+
+  if (showLogin) {
+    return <Login onBack={() => setShowLogin(false)} />
+  }
+
   return (
     <div className="app-shell bg-page text-text">
       <header className="site-header">
@@ -38,6 +46,13 @@ function App() {
           <a href="#home">Home</a>
           <a href="#roles">Portal roles</a>
           <a href="#about">About</a>
+          <button
+            className="nav-login"
+            type="button"
+            onClick={() => setShowLogin(true)}
+          >
+            Sign in
+          </button>
         </nav>
       </header>
 

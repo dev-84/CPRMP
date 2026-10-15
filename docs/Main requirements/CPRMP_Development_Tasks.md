@@ -305,13 +305,13 @@ Create the initial schema for:
 
 ## TASK-015 — Create Login UI
 
-- [ ] Create login page
-- [ ] Add email/username field
-- [ ] Add password field
-- [ ] Add validation
-- [ ] Add loading state
-- [ ] Add error state
-- [ ] Connect to login API
+- [x] Create login page
+- [x] Add email field
+- [x] Add password field
+- [x] Add validation
+- [x] Add loading state
+- [x] Add error state
+- [x] Connect to login API
 
 ---
 
