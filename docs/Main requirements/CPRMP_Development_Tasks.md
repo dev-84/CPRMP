@@ -338,14 +338,14 @@ Create the initial schema for:
 
 ## TASK-018 — Test Authentication
 
-- [ ] Test valid registration
-- [ ] Test duplicate email
-- [ ] Test invalid password
-- [ ] Test valid login
-- [ ] Test invalid login
-- [ ] Test expired token
-- [ ] Test invalid token
-- [ ] Test role authorization
+- [x] Test valid registration
+- [x] Test duplicate email
+- [x] Test invalid password
+- [x] Test valid login
+- [x] Test invalid login
+- [x] Test expired token
+- [x] Test invalid token
+- [x] Test role authorization
 
 ---
 
