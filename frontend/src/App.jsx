@@ -1,5 +1,6 @@
-
 import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { useCallback, useState } from 'react'
+import LoadingScreen from './components/LoadingScreen.jsx'
 import './App.css'
 import Login from './Login.jsx'
 import Registration from './Registration.jsx'
@@ -110,10 +111,24 @@ function Home() {
   )
 }
 
+function HomeWithSplash() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  const handleLoadingComplete = useCallback(() => {
+    setIsLoading(false)
+  }, [])
+
+  if (isLoading) {
+    return <LoadingScreen onComplete={handleLoadingComplete} />
+  }
+
+  return <Home />
+}
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<HomeWithSplash />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Registration />} />
 
