@@ -1,0 +1,284 @@
+/* StudentDashboard.css - Editorial Minimal Redesign */
+
+.sd-editorial-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* Welcome & Profile Strength Hero Grid */
+.sd-welcome-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.sd-welcome-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sd-cycle-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.sd-cycle-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent);
+}
+
+.sd-welcome-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3.4vw, 36px);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.sd-welcome-text {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0 0 24px;
+  max-width: 520px;
+}
+
+.sd-quick-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Profile Completion Card */
+.sd-profile-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sd-profile-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.sd-profile-name {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.sd-profile-sub {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.sd-progress-box {
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.sd-progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.sd-progress-bar-container {
+  width: 100%;
+  height: 7px;
+  background-color: #E2E6DF;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.sd-progress-bar-fill {
+  height: 100%;
+  background-color: var(--accent);
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+
+.sd-progress-caption {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* Feedback alert banner */
+.sd-alert-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-radius: 6px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 13.5px;
+}
+
+.sd-alert-banner.success {
+  border-color: #bcdbbd;
+  background-color: var(--success-soft);
+  color: var(--success);
+}
+
+.sd-alert-banner.info {
+  border-color: #c9daf0;
+  background-color: var(--info-soft);
+  color: var(--info);
+}
+
+/* Featured Opportunities Grid */
+.sd-drives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+/* Applications Journey Table */
+.sd-journey-container {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sd-application-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.12s ease;
+}
+
+.sd-application-row:last-child {
+  border-bottom: none;
+}
+
+.sd-application-row:hover {
+  background-color: #FAFBF9;
+}
+
+.sd-app-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sd-app-company {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sd-app-role {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.sd-app-date {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Eligibility Modal */
+.sd-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(23, 43, 36, 0.4);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.sd-eligibility-dialog {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-width: 520px;
+  width: 100%;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.sd-criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0 24px;
+}
+
+.sd-criteria-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: var(--surface-secondary);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.sd-criteria-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.sd-criteria-val {
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .sd-welcome-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sd-drives-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sd-application-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

@@ -1,14 +1,32 @@
+
 const StudentProfile = require('../../backend/src/models/StudentProfile');
+
+const validProfile = {
+  userId: '507f1f77bcf86cd799439011',
+  studentId: 'STU-001',
+  department: 'Computer Science',
+  degree: 'MCA',
+  graduationYear: 2027,
+};
+
+function createProfile(overrides = {}) {
+  return new StudentProfile({
+    ...validProfile,
+    ...overrides,
+  });
+}
 
 describe('StudentProfile model', () => {
   test('requires userId, studentId, department, degree, and graduationYear', async () => {
     const profile = new StudentProfile({});
 
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+
     try {
       await profile.validate();
-      throw new Error('Expected validation to fail');
     } catch (error) {
-      expect(error.name).toBe('ValidationError');
       expect(error.errors.userId).toBeDefined();
       expect(error.errors.studentId).toBeDefined();
       expect(error.errors.department).toBeDefined();
@@ -18,13 +36,11 @@ describe('StudentProfile model', () => {
   });
 
   test('trims studentId and text fields', async () => {
-    const profile = new StudentProfile({
-      userId: '507f1f77bcf86cd799439011',
+    const profile = createProfile({
       studentId: '  STU-001  ',
       phone: '  1234567890  ',
       department: '  Computer Science  ',
       degree: '  B.Tech  ',
-      graduationYear: 2030,
     });
 
     await profile.validate();
@@ -36,13 +52,7 @@ describe('StudentProfile model', () => {
   });
 
   test('defaults backlogCount to zero and skills to an empty array', () => {
-    const profile = new StudentProfile({
-      userId: '507f1f77bcf86cd799439011',
-      studentId: 'STU-002',
-      department: 'Computer Science',
-      degree: 'B.Tech',
-      graduationYear: 2030,
-    });
+    const profile = createProfile();
 
     expect(profile.backlogCount).toBe(0);
     expect(profile.skills).toEqual([]);
@@ -54,15 +64,94 @@ describe('StudentProfile model', () => {
   });
 
   test('rejects a negative backlogCount', async () => {
-    const profile = new StudentProfile({
-      userId: '507f1f77bcf86cd799439011',
-      studentId: 'STU-003',
-      department: 'Computer Science',
-      degree: 'B.Tech',
-      graduationYear: 2030,
-      backlogCount: -1,
+    const profile = createProfile({ backlogCount: -1 });
+
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+  });
+
+  test('rejects a non-integer backlogCount', async () => {
+    const profile = createProfile({ backlogCount: 1.5 });
+
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+  });
+
+  test('rejects a CGPA greater than 10', async () => {
+    const profile = createProfile({ cgpa: 10.1 });
+
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+  });
+
+  test('accepts a CGPA of 10', async () => {
+    const profile = createProfile({ cgpa: 10 });
+
+    await expect(profile.validate()).resolves.toBeUndefined();
+  });
+
+  test('rejects a current semester greater than 20', async () => {
+    const profile = createProfile({ currentSemester: 21 });
+
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+  });
+
+  test('rejects a non-integer current semester', async () => {
+    const profile = createProfile({ currentSemester: 3.5 });
+
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+  });
+
+  test('rejects a graduation year greater than 2200', async () => {
+    const profile = createProfile({ graduationYear: 2201 });
+
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+  });
+
+  test('rejects a non-integer graduation year', async () => {
+    const profile = createProfile({ graduationYear: 2027.5 });
+
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+  });
+
+  test('rejects more than 100 skills', async () => {
+    const skills = Array.from({ length: 101 }, (_, index) => `Skill-${index}`);
+
+    const profile = createProfile({ skills });
+
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+  });
+
+  test('rejects a skill name longer than 50 characters', async () => {
+    const profile = createProfile({
+      skills: ['A'.repeat(51)],
     });
 
-    await expect(profile.validate()).rejects.toThrow();
+    await expect(profile.validate()).rejects.toMatchObject({
+      name: 'ValidationError',
+    });
+  });
+
+  test('trims skill names', async () => {
+    const profile = createProfile({
+      skills: [' JavaScript ', ' React '],
+    });
+
+    await profile.validate();
+
+    expect(profile.skills).toEqual(['JavaScript', 'React']);
   });
 });

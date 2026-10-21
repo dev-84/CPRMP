@@ -1,0 +1,132 @@
+/* ProfileOverview.css - Editorial Minimal Design */
+
+.profile-editorial-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.profile-hero-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.profile-hero-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-monogram-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-serif);
+  font-size: 28px;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+}
+
+.profile-hero-name {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  margin: 0 0 4px;
+  color: var(--text-primary);
+}
+
+.profile-hero-dept {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.profile-sections-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.profile-card-block {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.profile-subheading {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.profile-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.field-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-label-text {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.field-value-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.academic-records-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.academic-records-table th {
+  background-color: var(--surface-secondary);
+  color: var(--text-secondary);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.academic-records-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .profile-sections-grid {
+    grid-template-columns: 1fr;
+  }
+}

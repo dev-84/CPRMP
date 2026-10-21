@@ -1,0 +1,97 @@
+/* PlacementDrives.css - Editorial Minimal Design */
+
+.drives-editorial-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.drives-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.drives-filter-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.drives-filter-btn {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.drives-filter-btn:hover {
+  background-color: var(--surface-secondary);
+  color: var(--text-primary);
+}
+
+.drives-filter-btn.active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #FAF9F6;
+  font-weight: 600;
+}
+
+.drives-search-box {
+  position: relative;
+  min-width: 260px;
+}
+
+.drives-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.drives-search-input {
+  width: 100%;
+  padding: 7px 12px 7px 32px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--surface-secondary);
+  color: var(--text-primary);
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+
+.drives-search-input:focus {
+  background-color: var(--surface);
+  border-color: var(--accent);
+}
+
+.drives-grid-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .drives-controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .drives-search-box {
+    width: 100%;
+  }
+  .drives-grid-list {
+    grid-template-columns: 1fr;
+  }
+}

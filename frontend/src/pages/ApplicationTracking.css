@@ -1,0 +1,171 @@
+/* ApplicationTracking.css - Editorial Minimal Design */
+
+.tracking-editorial-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.tracking-hero-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.tracking-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tracking-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  padding-top: 24px;
+}
+
+.tracking-body-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.tracking-stages-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.tracking-stage-item {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  padding-bottom: 32px;
+}
+
+.tracking-stage-item:last-child {
+  padding-bottom: 0;
+}
+
+.tracking-stage-item::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 36px;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--border);
+}
+
+.tracking-stage-item:last-child::before {
+  display: none;
+}
+
+.stage-bullet {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  z-index: 2;
+  font-size: 13px;
+  font-weight: 700;
+  background-color: var(--surface);
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+}
+
+.stage-bullet.completed {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: #FAF9F6;
+}
+
+.stage-bullet.current {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.stage-details-content {
+  flex: 1;
+}
+
+.stage-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.stage-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.stage-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0 0 6px;
+}
+
+.stage-footer-meta {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  display: flex;
+  gap: 12px;
+}
+
+.audit-events-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.audit-event-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.audit-event-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.audit-timestamp {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.audit-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.audit-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .tracking-body-grid {
+    grid-template-columns: 1fr;
+  }
+}

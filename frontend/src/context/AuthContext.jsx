@@ -1,22 +1,40 @@
+import { useMemo, useState } from "react";
+import { AuthContext } from "./authContext.js";
 
-import { useMemo, useState } from 'react'
-import { AuthContext } from './authContext.js'
+function readStoredAuth() {
+  try {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user") || "null");
+
+    if (token && user) {
+      return { token, user };
+    }
+  } catch {
+    // Invalid stored session: start logged out.
+  }
+
+  return { token: null, user: null };
+}
 
 export function AuthProvider({ children }) {
-  const [auth, setAuth] = useState({
-    token: null,
-    user: null,
-  })
+  const [auth, setAuth] = useState(readStoredAuth);
 
   function signIn({ token, user }) {
-    setAuth({ token, user })
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+    setAuth({ token, user });
   }
 
   function signOut() {
-    setAuth({
-      token: null,
-      user: null,
-    })
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    // Clear legacy keys used by older dashboard code.
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("authUser");
+
+    setAuth({ token: null, user: null });
   }
 
   const value = useMemo(
@@ -28,11 +46,11 @@ export function AuthProvider({ children }) {
       signOut,
     }),
     [auth],
-  )
+  );
 
   return (
     <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
-  )
+  );
 }

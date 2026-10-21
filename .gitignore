@@ -28,3 +28,7 @@ Thumbs.db
 
 # Local Postman workspace metadata
 .postman/
+
+# Temporary and backup files
+*.bak
+*.backup
