@@ -1,0 +1,474 @@
+/* CompanyProfile.css — CPRMP Editorial Minimal */
+
+.company-profile-root {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.btn-edit-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #3F754B;
+  color: #FFFFFF;
+  border: 1px solid #3F754B;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-edit-toggle:hover {
+  background-color: #315D3B;
+  border-color: #315D3B;
+}
+
+/* Alerts */
+.alert-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.alert-success {
+  background-color: #E8F5EA;
+  color: #287A45;
+  border: 1px solid #B8E2BE;
+}
+
+.alert-error {
+  background-color: #FCEAEA;
+  color: #B93838;
+  border: 1px solid #F3C3C3;
+}
+
+/* Layout Grid */
+.company-layout-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .company-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left Sidebar Card */
+.company-sidebar-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.company-avatar-large {
+  width: 72px;
+  height: 72px;
+  background-color: #EAF2E7;
+  color: #3F754B;
+  border: 2px solid #C7DEC4;
+  border-radius: 12px;
+  font-size: 24px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+}
+
+.company-headline {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #172B24;
+}
+
+.industry-pill {
+  display: inline-block;
+  font-size: 12px;
+  color: #68766D;
+  background-color: #F3F4EF;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+
+.verification-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  margin-bottom: 20px;
+}
+
+.verification-status-pill.verified {
+  background-color: #E8F5EA;
+  color: #287A45;
+  border: 1px solid #B8E2BE;
+}
+
+.company-quick-facts {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid #E5E7E1;
+  border-bottom: 1px solid #E5E7E1;
+  padding: 16px 0;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.fact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #172B24;
+}
+
+.website-link {
+  color: #3F754B;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.website-link:hover {
+  text-decoration: underline;
+}
+
+.security-notice-box {
+  background-color: #FAF9F6;
+  border: 1px dashed #E5E7E1;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #68766D;
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* Right Main Card */
+.company-main-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.card-header-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid #E5E7E1;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.card-heading {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+.card-subheading {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: #68766D;
+}
+
+.btn-cancel-edit {
+  background: transparent;
+  border: 1px solid #E5E7E1;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #68766D;
+  cursor: pointer;
+}
+
+.btn-cancel-edit:hover {
+  background-color: #F3F4EF;
+  color: #172B24;
+}
+
+/* Form Styles */
+.company-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .form-row-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #172B24;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #172B24;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #3F754B;
+  box-shadow: 0 0 0 2px rgba(63, 117, 75, 0.12);
+}
+
+.form-group input.input-disabled,
+.form-group textarea.input-disabled {
+  background-color: #FAF9F6;
+  color: #55625B;
+  cursor: not-allowed;
+  border-color: #EAECE7;
+}
+
+.field-hint {
+  font-size: 11px;
+  color: #8A948C;
+}
+
+.form-section-divider {
+  border-top: 1px solid #E5E7E1;
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.form-section-divider h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+.form-section-divider p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #68766D;
+}
+
+.form-action-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #E5E7E1;
+  padding-top: 20px;
+  margin-top: 10px;
+}
+
+.btn-save-company {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #3F754B;
+  color: #FFFFFF;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-save-company:hover {
+  background-color: #315D3B;
+}
+
+.btn-save-company:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Loading & Empty Cards */
+.company-loading-card,
+.company-empty-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 60px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #68766D;
+}
+
+/* Corporate Affiliation & Onboarding Card */
+.company-affiliation-card {
+  background-color: #FFFFFF;
+  border: 1px solid #D1DDD3;
+  border-radius: 10px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.affiliation-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.affiliation-icon {
+  width: 52px;
+  height: 52px;
+  background-color: #EAF2E7;
+  border: 1px solid #B8E2BE;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.affiliation-title-block h3 {
+  margin: 0 0 6px;
+  font-size: 19px;
+  font-weight: 700;
+  color: #172B24;
+}
+
+.affiliation-title-block p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #556B5D;
+  line-height: 1.5;
+}
+
+.affiliation-tabs {
+  display: flex;
+  gap: 10px;
+  border-bottom: 2px solid #E5E7E1;
+  margin-bottom: 24px;
+}
+
+.affiliation-tab {
+  background: none;
+  border: none;
+  padding: 10px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #68766D;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+
+.affiliation-tab:hover {
+  color: #172B24;
+}
+
+.affiliation-tab.active {
+  color: #2D5A36;
+  border-bottom: 2px solid #2D5A36;
+}
+
+.affiliation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.affiliation-select {
+  height: 42px;
+  font-size: 13.5px;
+  background-color: #FAFCF9;
+  border: 1.5px solid #CCD8CF;
+  font-weight: 500;
+  color: #172B24;
+  border-radius: 6px;
+  padding: 0 12px;
+  width: 100%;
+}
+
+.affiliation-select:focus {
+  border-color: #3F754B;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(63, 117, 75, 0.12);
+}
+
+.affiliation-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  padding-top: 18px;
+  border-top: 1px solid #E5E7E1;
+}
+
+.btn-confirm-affiliation {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2D5A36;
+  color: #FFFFFF;
+  border: none;
+  padding: 11px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-confirm-affiliation:hover {
+  background-color: #23472B;
+}
+
+.btn-confirm-affiliation:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+

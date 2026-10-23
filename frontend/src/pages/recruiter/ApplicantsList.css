@@ -1,0 +1,250 @@
+/* ApplicantsList.css — CPRMP Editorial Minimal */
+
+.applicants-list-root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn-open-shortlisting {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #3F754B;
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.btn-open-shortlisting:hover {
+  background-color: #315D3B;
+}
+
+/* Metric Strip */
+.applicants-summary-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+/* Toolbar */
+.applicants-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.filters-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.toolbar-select {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #172B24;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.toolbar-select:focus {
+  border-color: #3F754B;
+}
+
+/* Table Card */
+.applicants-table-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.applicants-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.applicants-table th {
+  padding: 12px 18px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #68766D;
+  background-color: #FAF9F6;
+  border-bottom: 1px solid #E5E7E1;
+  white-space: nowrap;
+}
+
+.applicants-table td {
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #172B24;
+  border-bottom: 1px solid #E5E7E1;
+  vertical-align: middle;
+}
+
+.applicants-table tbody tr:hover {
+  background-color: #FAF9F6;
+}
+
+.program-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.program-cell span {
+  font-weight: 600;
+  color: #172B24;
+}
+
+.program-cell small {
+  font-size: 11px;
+  color: #68766D;
+}
+
+.text-clean {
+  color: #287A45;
+  font-weight: 600;
+}
+
+.text-backlog {
+  color: #B93838;
+  font-weight: 700;
+}
+
+.date-text {
+  font-size: 12px;
+  color: #68766D;
+  white-space: nowrap;
+}
+
+/* Action Buttons */
+.action-btn-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 9px;
+  border-radius: 4px;
+  background-color: #EAF2E7;
+  border: 1px solid #C7DEC4;
+  color: #3F754B;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.action-btn-resume:hover {
+  background-color: #DDECD8;
+}
+
+.no-resume-text {
+  font-size: 11px;
+  color: #8A948C;
+  font-style: italic;
+  padding: 0 4px;
+}
+
+.action-btn-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 9px;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  color: #172B24;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.action-btn-view:hover {
+  background-color: #F3F4EF;
+}
+
+.action-btn-review {
+  padding: 5px 9px;
+  border-radius: 4px;
+  background-color: #EAF1F9;
+  border: 1px solid #BFD5ED;
+  color: #345F91;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.action-btn-shortlist {
+  padding: 5px 9px;
+  border-radius: 4px;
+  background-color: #FFF3DA;
+  border: 1px solid #F5DEAE;
+  color: #A96C17;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.action-btn-interview {
+  padding: 5px 9px;
+  border-radius: 4px;
+  background-color: #EEF2FF;
+  border: 1px solid #C7D2FE;
+  color: #4338CA;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Dialog Note */
+.dialog-note-input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.dialog-note-input label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+.dialog-note-input textarea {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #172B24;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  outline: none;
+}
+
+.dialog-note-input textarea:focus {
+  border-color: #3F754B;
+}
+
+.target-status-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: #EAF2E7;
+  color: #3F754B;
+  font-weight: 700;
+  font-size: 12px;
+}

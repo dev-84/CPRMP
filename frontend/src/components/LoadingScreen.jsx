@@ -101,7 +101,24 @@ export default function LoadingScreen({ onComplete }) {
 
           <div className="splash-telemetry">
             <span>◈ Student placement portal</span>
-            <span>◆ Initializing</span>
+            <button
+              type="button"
+              onClick={onComplete}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "#4f46e5",
+                fontSize: "13px",
+                fontWeight: "600",
+                cursor: "pointer",
+                padding: "4px 8px",
+                borderRadius: "4px",
+                textDecoration: "underline",
+                textUnderlineOffset: "3px"
+              }}
+            >
+              Skip to portal →
+            </button>
           </div>
         </div>
 

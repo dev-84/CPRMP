@@ -28,6 +28,18 @@ const companySchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
     },
+    logo: {
+      type: String,
+      trim: true,
+    },
+    size: {
+      type: String,
+      trim: true,
+    },
+    phone: {
+      type: String,
+      trim: true,
+    },
     status: {
       type: String,
       required: true,

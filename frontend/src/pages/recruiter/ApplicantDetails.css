@@ -1,0 +1,565 @@
+/* ApplicantDetails.css — CPRMP Editorial Minimal */
+
+.applicant-details-root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Candidate Banner Card */
+.candidate-banner-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 24px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.candidate-large-avatar {
+  width: 64px;
+  height: 64px;
+  background-color: #EAF2E7;
+  color: #3F754B;
+  border: 1px solid #C7DEC4;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.candidate-headline-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.candidate-name-large {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #172B24;
+}
+
+.roll-number-tag {
+  font-family: monospace;
+  font-size: 13px;
+  background-color: #F3F4EF;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #172B24;
+}
+
+.verified-student-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  background-color: #E8F5EA;
+  color: #287A45;
+  border: 1px solid #B8E2BE;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.candidate-meta-line {
+  margin: 4px 0 6px;
+  font-size: 13px;
+  color: #55625B;
+}
+
+.candidate-contact-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #68766D;
+  flex-wrap: wrap;
+}
+
+.banner-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.current-status-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.status-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #68766D;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.btn-open-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #EAF2E7;
+  color: #3F754B;
+  border: 1px solid #3F754B;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-open-resume:hover {
+  background-color: #DDECD8;
+}
+
+/* Decision Toolbar */
+.candidate-decision-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FAF9F6;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 12px 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.toolbar-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+.decision-buttons-flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-decision {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-review {
+  background-color: #EAF1F9;
+  border: 1px solid #BFD5ED;
+  color: #345F91;
+}
+
+.btn-shortlist {
+  background-color: #FFF3DA;
+  border: 1px solid #F5DEAE;
+  color: #A96C17;
+}
+
+.btn-interview {
+  background-color: #EEF2FF;
+  border: 1px solid #C7D2FE;
+  color: #4338CA;
+}
+
+.btn-select {
+  background-color: #3F754B;
+  border: 1px solid #3F754B;
+  color: #FFFFFF;
+}
+
+.btn-select:hover {
+  background-color: #315D3B;
+}
+
+.btn-reject {
+  background-color: transparent;
+  border: 1px solid #B93838;
+  color: #B93838;
+}
+
+.btn-reject:hover {
+  background-color: #FCEAEA;
+}
+
+/* Dossier Grid */
+.dossier-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .dossier-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dossier-main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dossier-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.card-title-row h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+/* Academic Stat Grid */
+.academic-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 14px;
+}
+
+.acad-stat-box {
+  background-color: #FAF9F6;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.acad-stat-label {
+  font-size: 11px;
+  color: #68766D;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.acad-stat-val {
+  font-size: 20px;
+  font-weight: 700;
+  color: #172B24;
+}
+
+.acad-stat-val.primary-green { color: #3F754B; }
+.acad-stat-val.clean-green { color: #287A45; }
+.acad-stat-val.error-red { color: #B93838; }
+
+.acad-stat-box small {
+  font-size: 11px;
+  color: #8A948C;
+}
+
+/* Skills */
+.skills-badge-collection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-pill {
+  background-color: #EAF2E7;
+  color: #3F754B;
+  border: 1px solid #C7DEC4;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Projects */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.project-item-card {
+  background-color: #FAF9F6;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  padding: 14px;
+}
+
+.project-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.project-title {
+  font-size: 14px;
+  color: #172B24;
+}
+
+.proj-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #3F754B;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.project-desc {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #55625B;
+  line-height: 1.5;
+}
+
+.project-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tech-tag {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #68766D;
+}
+
+/* Certifications */
+.certifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cert-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #FAF9F6;
+  border: 1px solid #E5E7E1;
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+.cert-item strong {
+  font-size: 13px;
+  color: #172B24;
+}
+
+.cert-item span {
+  font-size: 11px;
+  color: #68766D;
+}
+
+/* Side Column */
+.dossier-side-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.side-panel-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.side-card-heading {
+  margin: 0 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #172B24;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Resume Box */
+.resume-box-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #FAF9F6;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.resume-icon-circle {
+  width: 48px;
+  height: 48px;
+  background-color: #EAF2E7;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+}
+
+.resume-filename {
+  font-size: 14px;
+  color: #172B24;
+  margin-bottom: 4px;
+  word-break: break-all;
+}
+
+.resume-filesize {
+  font-size: 12px;
+  color: #68766D;
+  margin-bottom: 16px;
+}
+
+.btn-full-preview {
+  width: 100%;
+  background-color: #3F754B;
+  color: #FFFFFF;
+  border: none;
+  padding: 9px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-full-preview:hover {
+  background-color: #315D3B;
+}
+
+/* Timeline */
+.audit-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  padding-left: 14px;
+}
+
+.audit-timeline::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 3px;
+  width: 2px;
+  background-color: #E5E7E1;
+}
+
+.timeline-entry {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #3F754B;
+  margin-top: 5px;
+  flex-shrink: 0;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 0 1px #3F754B;
+}
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timeline-stage {
+  font-size: 12px;
+  font-weight: 700;
+  color: #172B24;
+}
+
+.timeline-date {
+  font-size: 11px;
+  color: #68766D;
+}
+
+.timeline-note {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: #55625B;
+  line-height: 1.4;
+}
+
+.timeline-actor {
+  font-size: 10px;
+  color: #8A948C;
+  font-style: italic;
+}
+
+/* Modal Input Group */
+.modal-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.modal-input-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+.modal-input-group input,
+.modal-input-group textarea {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #172B24;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  outline: none;
+}
+
+.dossier-loading-card,
+.dossier-error-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 60px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}

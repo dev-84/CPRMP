@@ -28,11 +28,24 @@ const applicationSchema = new mongoose.Schema(
         'submitted',
         'under_review',
         'shortlisted',
+        'interview',
         'rejected',
         'selected',
         'withdrawn',
       ],
       default: 'submitted',
+    },
+    reviewNotes: {
+      type: String,
+      trim: true,
+    },
+    reviewedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    interviewRound: {
+      type: String,
+      trim: true,
     },
     eligibilityStatus: {
       type: String,

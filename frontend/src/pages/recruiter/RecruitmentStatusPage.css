@@ -1,0 +1,250 @@
+/* RecruitmentStatusPage.css — CPRMP Editorial Minimal */
+
+.recruitment-status-root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header-controls-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.drive-select-dropdown {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #172B24;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  min-width: 240px;
+}
+
+.drive-select-dropdown:focus {
+  border-color: #3F754B;
+}
+
+/* Funnel Pipeline Card */
+.funnel-pipeline-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.pipeline-card-title {
+  margin: 0 0 18px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+.funnel-steps-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.funnel-step {
+  flex: 1;
+  min-width: 140px;
+  background-color: #FAF9F6;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.funnel-step-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.step-number {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8A948C;
+}
+
+.step-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+.funnel-step-count {
+  font-size: 26px;
+  font-weight: 700;
+  color: #172B24;
+  font-family: "DM Serif Display", Georgia, serif;
+}
+
+.funnel-step-desc {
+  font-size: 11px;
+  color: #68766D;
+}
+
+.highlight-shortlist {
+  color: #A96C17;
+}
+
+.highlight-interview {
+  color: #4338CA;
+}
+
+.highlight-selected-step {
+  background-color: #E8F5EA;
+  border-color: #B8E2BE;
+}
+
+.highlight-selected {
+  color: #287A45;
+}
+
+.funnel-arrow {
+  display: grid;
+  place-items: center;
+  opacity: 0.6;
+}
+
+.terminal-outcomes-strip {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-top: 1px solid #E5E7E1;
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.terminal-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.terminal-label {
+  color: #68766D;
+}
+
+.terminal-val {
+  font-size: 15px;
+}
+
+.text-red {
+  color: #B93838;
+}
+
+.text-muted {
+  color: #8A948C;
+}
+
+/* Tracking Panel */
+.candidates-tracking-panel {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tracking-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #E5E7E1;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tracking-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+.tracking-subtitle {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #68766D;
+}
+
+.tracking-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #FAF9F6;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+
+.tracking-search-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #172B24;
+  min-width: 220px;
+}
+
+.tracking-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tracking-table th {
+  padding: 12px 18px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #68766D;
+  background-color: #FAF9F6;
+  border-bottom: 1px solid #E5E7E1;
+  white-space: nowrap;
+}
+
+.tracking-table td {
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #172B24;
+  border-bottom: 1px solid #E5E7E1;
+  vertical-align: middle;
+}
+
+.tracking-table tbody tr:hover {
+  background-color: #FAF9F6;
+}
+
+.round-text {
+  font-size: 12px;
+  color: #4338CA;
+  font-weight: 500;
+}
+
+.status-loading-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 60px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #68766D;
+}

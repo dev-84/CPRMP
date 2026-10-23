@@ -19,6 +19,19 @@ import MyApplications from "./pages/MyApplications.jsx";
 import ApplicationTracking from "./pages/ApplicationTracking.jsx";
 import AIResumeMatching from "./pages/AIResumeMatching.jsx";
 import PlacementHistory from "./pages/PlacementHistory.jsx";
+import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
+import StudentManagement from "./pages/admin/StudentManagement.jsx";
+import RecruiterManagement from "./pages/admin/RecruiterManagement.jsx";
+import PlacementDriveManagement from "./pages/admin/PlacementDriveManagement.jsx";
+import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard.jsx";
+import CompanyProfile from "./pages/recruiter/CompanyProfile.jsx";
+import PlacementDrivesList from "./pages/recruiter/PlacementDrivesList.jsx";
+import CreatePlacementDrive from "./pages/recruiter/CreatePlacementDrive.jsx";
+import PlacementDriveDetails from "./pages/recruiter/PlacementDriveDetails.jsx";
+import ApplicantsList from "./pages/recruiter/ApplicantsList.jsx";
+import ApplicantDetails from "./pages/recruiter/ApplicantDetails.jsx";
+import ShortlistingWorkspace from "./pages/recruiter/ShortlistingWorkspace.jsx";
+import RecruitmentStatusPage from "./pages/recruiter/RecruitmentStatusPage.jsx";
 
 
 const roles = [
@@ -93,8 +106,8 @@ function Brand({ footer = false }) {
     >
       <img
         className="brand-logo"
-        src="/CPRMP/logo.png"
-        alt=""
+        src="/cprmp-logo.png"
+        alt="CPRMP"
         onError={(event) => {
           event.currentTarget.style.display = 'none'
         }}
@@ -521,17 +534,26 @@ function Home() {
 }
 
 function HomeWithSplash() {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem("cprmp_splash_seen");
+    } catch {
+      return false;
+    }
+  });
 
   const handleLoadingComplete = useCallback(() => {
-    setIsLoading(false)
-  }, [])
+    try {
+      sessionStorage.setItem("cprmp_splash_seen", "true");
+    } catch {}
+    setIsLoading(false);
+  }, []);
 
   if (isLoading) {
-    return <LoadingScreen onComplete={handleLoadingComplete} />
+    return <LoadingScreen onComplete={handleLoadingComplete} />;
   }
 
-  return <Home />
+  return <Home />;
 }
 
 
@@ -558,117 +580,74 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Registration />} />
 
+      {/* Student Portal Routes */}
       <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
+        {/* 1. Student Dashboard */}
         <Route path="/student" element={<StudentDashboard />} />
-      </Route>
 
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
+        {/* 2-6. Student Profile & Sub-views */}
         <Route path="/student/profile" element={<ProfileOverview />} />
-      </Route>
-
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
+        <Route path="/student/profile/academics" element={<ProfileOverview initialTab="academic" />} />
+        <Route path="/student/profile/contact" element={<ProfileOverview initialTab="contact" />} />
+        <Route path="/student/profile/skills" element={<ProfileOverview initialTab="skills" />} />
+        <Route path="/student/profile/projects" element={<ProfileOverview initialTab="projects" />} />
         <Route path="/student/edit-profile" element={<EditProfile />} />
-      </Route>
+        <Route path="/student/profile/edit" element={<EditProfile />} />
 
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
+        {/* 7. Resume Management */}
         <Route path="/student/resume" element={<ResumeManagement />} />
-      </Route>
 
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
+        {/* 8-9. Placement Drives & Drive Details */}
+        <Route path="/student/drives" element={<PlacementDrives />} />
         <Route path="/student/placement-drives" element={<PlacementDrives />} />
-      </Route>
+        <Route path="/student/drives/:id" element={<DriveDetailsApply />} />
+        <Route path="/student/drive-details" element={<PlacementDrives />} />
+        <Route path="/student/drive-details/:id" element={<DriveDetailsApply />} />
 
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
-        <Route path="/student/drive-details" element={<DriveDetailsApply />} />
-
-        <Route
-          path="/student/drive-details/:id"
-          element={<DriveDetailsApply />}
-        />
-
-        <Route
-          path="/student/application-submission/:id"
-          element={<DriveDetailsApply />}
-        />
-      </Route>
-
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
-        <Route
-          path="/student/application-submission"
-          element={<ApplicationSubmission />}
-        />
-
-        <Route
-          path="/student/application-submission/:id"
-          element={<ApplicationSubmission />}
-        />
-      </Route>
-
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
-        <Route
-          path="/student/application-submitted"
-          element={<ApplicationSubmitted />}
-        />
-      </Route>
-
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
+        {/* 10-11. Applications Tracking */}
         <Route path="/student/applications" element={<MyApplications />} />
+        <Route path="/student/applications/:id" element={<ApplicationTracking />} />
+        <Route path="/student/application-tracking/:id" element={<ApplicationTracking />} />
+        <Route path="/student/application-submission/:id" element={<DriveDetailsApply />} />
+        <Route path="/student/application-submitted" element={<ApplicationSubmitted />} />
 
-        <Route
-          path="/student/application-tracking/:id"
-          element={<ApplicationTracking />}
-        />
+        {/* 12. AI Placement Matching */}
+        <Route path="/student/ai-matching" element={<AIResumeMatching />} />
+        <Route path="/student/ai-resume-matching" element={<AIResumeMatching />} />
 
-        <Route
-          path="/student/application-submitted"
-          element={<ApplicationSubmitted />}
-        />
+        {/* 13. Placement History */}
+        <Route path="/student/placement-history" element={<PlacementHistory />} />
       </Route>
 
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
-        <Route
-          path="/student/ai-resume-matching"
-          element={<AIResumeMatching />}
-        />
-        <Route
-          path="/student/ai-matching"
-          element={<Navigate to="/student/ai-resume-matching" replace />}
-        />
-        <Route
-          path="/student/drives"
-          element={<Navigate to="/student/placement-drives" replace />}
-        />
-      </Route>
-
-      <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
-        <Route
-          path="/student/placement-history"
-          element={<PlacementHistory />}
-        />
-      </Route>
 
       <Route element={<ProtectedRoute allowedRoles={["recruiter"]} />}>
-        <Route
-          path="/recruiter"
-          element={
-            <RoleDashboard
-              title="Recruiter Dashboard"
-              description="Manage recruitment activities and review applicants."
-            />
-          }
-        />
+        <Route path="/recruiter" element={<RecruiterDashboard />} />
+        <Route path="/recruiter/company" element={<CompanyProfile />} />
+        <Route path="/recruiter/drives" element={<PlacementDrivesList />} />
+        <Route path="/recruiter/drives/create" element={<CreatePlacementDrive />} />
+        <Route path="/recruiter/drives/:id" element={<PlacementDriveDetails />} />
+        <Route path="/recruiter/drives/:id/edit" element={<CreatePlacementDrive />} />
+        <Route path="/recruiter/applicants" element={<ApplicantsList />} />
+        <Route path="/recruiter/applicants/:id" element={<ApplicantDetails />} />
+        <Route path="/recruiter/shortlisting" element={<ShortlistingWorkspace />} />
+        <Route path="/recruiter/recruitment-status" element={<RecruitmentStatusPage />} />
+
+        {/* Convenient Aliases */}
+        <Route path="/recruiter/outcomes" element={<Navigate to="/recruiter/recruitment-status" replace />} />
+        <Route path="/recruiter/pipeline" element={<Navigate to="/recruiter/recruitment-status" replace />} />
       </Route>
 
       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-        <Route
-          path="/admin"
-          element={
-            <RoleDashboard
-              title="Admin Dashboard"
-              description="Manage placement operations and recruitment drives."
-            />
-          }
-        />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/student" element={<StudentManagement />} />
+        <Route path="/admin/recruiters" element={<RecruiterManagement />} />
+        <Route path="/admin/drive" element={<PlacementDriveManagement />} />
+
+        {/* Convenient Aliases */}
+        <Route path="/admin/students" element={<Navigate to="/admin/student" replace />} />
+        <Route path="/admin/drives" element={<Navigate to="/admin/drive" replace />} />
+        <Route path="/admin/recruiter" element={<Navigate to="/admin/recruiters" replace />} />
+        <Route path="/admin/companies" element={<Navigate to="/admin/recruiters" replace />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

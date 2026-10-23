@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Building,
   Briefcase,
@@ -65,12 +65,26 @@ const INITIAL_APPLICANTS = [
 
 export default function RecruiterPortal() {
   const location = useLocation();
-  const queryTab = new URLSearchParams(location.search).get("tab");
+  const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState(queryTab || "overview");
+  const activeTab = useMemo(() => {
+    const tabParam = new URLSearchParams(location.search).get("tab");
+    const validTabs = ["overview", "company", "drives", "applicants", "outcomes"];
+    return tabParam && validTabs.includes(tabParam) ? tabParam : "overview";
+  }, [location.search]);
+
   const [applicants, setApplicants] = useState(INITIAL_APPLICANTS);
   const [search, setSearch] = useState("");
   const [feedback, setFeedback] = useState(null);
+
+  const handleTabChange = (tabId) => {
+    setSearch("");
+    if (tabId === "overview") {
+      navigate("/recruiter");
+    } else {
+      navigate(`/recruiter?tab=${tabId}`);
+    }
+  };
 
   const updateApplicantStatus = (id, newStatus) => {
     setApplicants((prev) =>
@@ -162,10 +176,7 @@ export default function RecruiterPortal() {
                 key={tab.id}
                 type="button"
                 className={`recruiter-tab-btn ${active ? "active" : ""}`}
-                onClick={() => {
-                  setActiveTab(tab.id);
-                  setSearch("");
-                }}
+                onClick={() => handleTabChange(tab.id)}
               >
                 <IconComp size={15} />
                 <span>{tab.label}</span>

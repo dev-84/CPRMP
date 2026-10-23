@@ -38,6 +38,21 @@ const placementHistorySchema = new mongoose.Schema(
       minlength: 3,
       maxlength: 3,
     },
+    tier: {
+      type: String,
+      trim: true,
+      enum: ['Regular', 'Dream', 'Super Dream'],
+      default: 'Regular',
+    },
+    offerLetterStatus: {
+      type: String,
+      trim: true,
+      enum: ['issued', 'accepted', 'signed', 'rejected'],
+      default: 'issued',
+    },
+    signedAt: {
+      type: Date,
+    },
     placedAt: {
       type: Date,
       required: true,

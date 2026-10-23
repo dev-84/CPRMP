@@ -1,0 +1,251 @@
+/* CreatePlacementDrive.css — CPRMP Editorial Minimal */
+
+.create-drive-root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.back-nav-row {
+  margin-bottom: -6px;
+}
+
+.btn-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #68766D;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-back-link:hover {
+  color: #172B24;
+  text-decoration: underline;
+}
+
+/* Form Sections */
+.drive-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-card-section {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.section-title-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.section-title-strip h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #172B24;
+}
+
+.section-desc {
+  margin: 0 0 20px;
+  font-size: 13px;
+  color: #68766D;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #172B24;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #172B24;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #3F754B;
+  box-shadow: 0 0 0 2px rgba(63, 117, 75, 0.12);
+}
+
+.ctc-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ctc-input-row input {
+  flex: 1;
+}
+
+.ctc-input-row span {
+  font-size: 13px;
+  color: #68766D;
+}
+
+/* Checkbox Pills */
+.checkbox-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.checkbox-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #FAF9F6;
+  border: 1px solid #E5E7E1;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #172B24;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.checkbox-pill input {
+  accent-color: #3F754B;
+}
+
+.checkbox-pill.checked {
+  background-color: #EAF2E7;
+  border-color: #3F754B;
+  color: #3F754B;
+  font-weight: 600;
+}
+
+/* Sticky Footer */
+.form-sticky-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 16px 24px;
+  margin-top: 8px;
+}
+
+.footer-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-footer-cancel {
+  background: transparent;
+  border: 1px solid #E5E7E1;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #68766D;
+  cursor: pointer;
+}
+
+.btn-footer-cancel:hover {
+  background-color: #F3F4EF;
+  color: #172B24;
+}
+
+.btn-footer-draft {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #F3F4EF;
+  border: 1px solid #E5E7E1;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #172B24;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-footer-draft:hover {
+  background-color: #EAECE7;
+}
+
+.btn-footer-publish {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #3F754B;
+  border: 1px solid #3F754B;
+  color: #FFFFFF;
+  padding: 9px 24px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-footer-publish:hover {
+  background-color: #315D3B;
+  border-color: #315D3B;
+}
+
+.btn-footer-publish:disabled,
+.btn-footer-draft:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-loading-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  padding: 60px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #68766D;
+}

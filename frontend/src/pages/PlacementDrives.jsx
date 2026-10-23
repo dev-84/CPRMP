@@ -1,6 +1,16 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Filter, ShieldCheck, CheckCircle2, AlertCircle, X, RotateCcw } from "lucide-react";
+import {
+  Search,
+  Filter,
+  ShieldCheck,
+  CheckCircle2,
+  AlertCircle,
+  X,
+  RotateCcw,
+  RefreshCw,
+  Building2,
+} from "lucide-react";
 import { useAuth } from "../context/useAuth.js";
 import AppLayout from "../components/ui/AppLayout.jsx";
 import {
@@ -8,150 +18,46 @@ import {
   PlacementDriveCard,
   EmptyState,
 } from "../components/ui/EditorialComponents.jsx";
+import { studentApi } from "../api/studentApi.js";
 import "./PlacementDrives.css";
-
-const ALL_DRIVES = [
-  {
-    id: "drv-001",
-    company: "Microsoft IDC",
-    logo: "MS",
-    role: "Software Engineer — Cloud & AI Infrastructure",
-    package: 32,
-    ctc: "₹32.0 LPA",
-    location: "Hyderabad / Bengaluru",
-    deadline: "28 Oct 2026",
-    category: "Super Dream",
-    degree: "MCA, B.Tech CS/IT",
-    minCgpa: 8.0,
-    maxBacklogs: 0,
-    skills: ["Azure", "Distributed Systems", "C++", "Python", "Kubernetes"],
-    description: "Design and implement scalable cloud infrastructure and high-throughput AI services.",
-  },
-  {
-    id: "drv-002",
-    company: "Goldman Sachs",
-    logo: "GS",
-    role: "Engineering Analyst (Core Systems)",
-    package: 28.5,
-    ctc: "₹28.5 LPA",
-    location: "Bengaluru",
-    deadline: "02 Nov 2026",
-    category: "Super Dream",
-    degree: "MCA, B.Tech CS/IT",
-    minCgpa: 8.0,
-    maxBacklogs: 0,
-    skills: ["Java", "SQL", "Algorithms", "Financial Tech", "Data Structures"],
-    description: "Build robust transaction processing and risk analysis systems for global financial markets.",
-  },
-  {
-    id: "drv-003",
-    company: "Infosys",
-    logo: "INF",
-    role: "Systems Specialist",
-    package: 9.5,
-    ctc: "₹9.5 LPA",
-    location: "Pune / Bengaluru",
-    deadline: "05 Nov 2026",
-    category: "Core Tech",
-    degree: "All Master Disciplines",
-    minCgpa: 7.0,
-    maxBacklogs: 1,
-    skills: ["Full Stack", "Java", "React", "Cloud Basics", "REST APIs"],
-    description: "Enterprise software development, modernization, and digital transformation consulting.",
-  },
-  {
-    id: "drv-004",
-    company: "Google India",
-    logo: "G",
-    role: "Associate Software Engineer",
-    package: 34,
-    ctc: "₹34.0 LPA",
-    location: "Bengaluru / Hyderabad",
-    deadline: "30 Oct 2026",
-    category: "Super Dream",
-    degree: "MCA, B.Tech CS/IT",
-    minCgpa: 8.5,
-    maxBacklogs: 0,
-    skills: ["DSA", "Go", "Distributed Systems", "Kubernetes", "Linux"],
-    description: "Develop high-scale web platforms and system software utilized by billions across the globe.",
-  },
-  {
-    id: "drv-005",
-    company: "Deloitte USI",
-    logo: "DT",
-    role: "Associate Analyst (Tech Consulting)",
-    package: 14.2,
-    ctc: "₹14.2 LPA",
-    location: "Hyderabad / Bengaluru",
-    deadline: "10 Nov 2026",
-    category: "Dream",
-    degree: "MCA, B.Tech, M.Tech",
-    minCgpa: 7.5,
-    maxBacklogs: 0,
-    skills: ["Python", "SQL", "Business Analytics", "Cloud Architecture"],
-    description: "Deliver technology solutions and advisory services to enterprise clients internationally.",
-  },
-  {
-    id: "drv-006",
-    company: "TCS Digital",
-    logo: "TCS",
-    role: "System Architect Trainee",
-    package: 7.5,
-    ctc: "₹7.5 LPA",
-    location: "Pan-India",
-    deadline: "15 Nov 2026",
-    category: "Core Tech",
-    degree: "MCA, B.Tech",
-    minCgpa: 7.0,
-    maxBacklogs: 1,
-    skills: ["Java", "SQL", "Spring Boot", "Software Engineering"],
-    description: "Work on cutting-edge digital enterprise engagements across diverse industry verticals.",
-  },
-];
-
-function readSaved(key, fallback) {
-  try {
-    const v = localStorage.getItem(key);
-    return v ? JSON.parse(v) : fallback;
-  } catch {
-    return fallback;
-  }
-}
 
 export default function PlacementDrives() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const [drives] = useState(() => readSaved("cprmp_all_drives", ALL_DRIVES));
-  const [applications, setApplications] = useState(() =>
-    readSaved("cprmp_applications", [])
-  );
+  const [loading, setLoading] = useState(true);
+  const [drives, setDrives] = useState([]);
+  const [studentMeta, setStudentMeta] = useState(null);
   const [search, setSearch] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [feedback, setFeedback] = useState(null);
+  const [error, setError] = useState(null);
 
-  const profile = useMemo(() => {
-    const stored = readSaved("cprmpStudentProfile", {});
-    return {
-      name: user?.name || stored.fullName || "Student",
-      cgpa: Number(stored.cgpa || 8.84),
-      backlogs: Number(stored.backlogs || 0),
-    };
-  }, [user]);
-
-  // Persist applications
-  useEffect(() => {
+  const fetchDrives = useCallback(async () => {
     try {
-      localStorage.setItem("cprmp_applications", JSON.stringify(applications));
-    } catch {}
-  }, [applications]);
+      setLoading(true);
+      setError(null);
+      const data = await studentApi.getDrives();
+      setDrives(data.drives || []);
+      setStudentMeta(data.student || null);
+    } catch (err) {
+      console.error("Failed to load placement drives:", err);
+      setError(err.message || "Failed to load placement drives.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchDrives();
+  }, [fetchDrives]);
 
   const filterTabs = [
     { id: "all", label: "All Drives" },
     { id: "eligible", label: "Eligible Only" },
     { id: "super-dream", label: "Super Dream (> ₹20 LPA)" },
     { id: "dream", label: "Dream (₹10–₹20 LPA)" },
-    { id: "core", label: "Core Tech" },
+    { id: "core", label: "Core Tech (< ₹10 LPA)" },
   ];
 
   const filteredDrives = useMemo(() => {
@@ -164,13 +70,9 @@ export default function PlacementDrives() {
         drive.location.toLowerCase().includes(q) ||
         (Array.isArray(drive.skills) && drive.skills.some((s) => s.toLowerCase().includes(q)));
 
-      const isEligible =
-        profile.cgpa >= (drive.minCgpa || 7.0) &&
-        profile.backlogs <= (drive.maxBacklogs || 0);
-
       let matchesFilter = true;
       if (selectedFilter === "eligible") {
-        matchesFilter = isEligible;
+        matchesFilter = drive.isEligible;
       } else if (selectedFilter === "super-dream") {
         matchesFilter = drive.category === "Super Dream" || drive.package >= 20;
       } else if (selectedFilter === "dream") {
@@ -181,109 +83,114 @@ export default function PlacementDrives() {
 
       return matchesSearch && matchesFilter;
     });
-  }, [drives, search, selectedFilter, profile]);
+  }, [drives, search, selectedFilter]);
 
-  const handleApply = (drive) => {
-    const alreadyApplied = applications.some(
-      (app) => app.driveId === drive.id || app.company === drive.company
-    );
-
-    if (alreadyApplied) {
+  const handleApply = async (drive) => {
+    if (drive.hasApplied) {
       setFeedback({
         type: "info",
-        message: `You have already submitted an application for ${drive.company}.`,
+        message: `You have already applied to ${drive.company}. View progress in My Applications.`,
       });
       return;
     }
 
-    const isEligible =
-      profile.cgpa >= (drive.minCgpa || 7.0) &&
-      profile.backlogs <= (drive.maxBacklogs || 0);
-
-    if (!isEligible) {
+    if (!drive.isEligible) {
       setFeedback({
         type: "error",
-        message: `Eligibility criteria not met: requires minimum CGPA ${drive.minCgpa} and max backlogs ${drive.maxBacklogs}.`,
+        message: `You do not meet the minimum eligibility requirements for ${drive.company}.`,
       });
       return;
     }
 
-    const newApp = {
-      id: `app-${Date.now()}`,
-      driveId: drive.id,
-      company: drive.company,
-      role: drive.role,
-      appliedDate: new Date().toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      }),
-      status: "Applied",
-      milestone: "Application submitted and queued for verification",
-    };
-
-    setApplications((prev) => [newApp, ...prev]);
-    setFeedback({
-      type: "success",
-      message: `Application submitted successfully for ${drive.company} — ${drive.role}!`,
-    });
-  };
-
-  const handleResetFilters = () => {
-    setSearch("");
-    setSelectedFilter("all");
+    try {
+      await studentApi.applyToDrive(drive.id);
+      setFeedback({
+        type: "success",
+        message: `Application submitted successfully for ${drive.company} (${drive.role})!`,
+      });
+      await fetchDrives();
+    } catch (err) {
+      console.error("Apply error:", err);
+      if (err.code === "RESUME_REQUIRED" || err.message?.toLowerCase().includes("resume")) {
+        setFeedback({
+          type: "error",
+          message: err.message || "A verified resume is required before applying.",
+          action: {
+            label: "Go to Resume Management",
+            onClick: () => navigate("/student/resume"),
+          },
+        });
+      } else {
+        setFeedback({
+          type: "error",
+          message: err.message || "Failed to submit application. Please try again.",
+        });
+      }
+    }
   };
 
   return (
     <AppLayout
       pageTitle="Placement Drives"
-      breadcrumb="Student Workspace"
+      breadcrumb="Campus Placement Portal"
       searchValue={search}
       onSearch={setSearch}
-      searchPlaceholder="Search company, skills, role..."
+      searchPlaceholder="Filter by company, skill, role, location..."
     >
-      <div className="drives-editorial-layout">
+      <div className="editorial-page-container">
+        {/* Feedback Alert */}
         {feedback && (
-          <div
-            style={{
-              padding: "12px 18px",
-              borderRadius: "6px",
-              backgroundColor: feedback.type === "error" ? "var(--error-soft)" : "var(--success-soft)",
-              border: `1px solid ${feedback.type === "error" ? "#f5c2c2" : "#c6e1c9"}`,
-              color: feedback.type === "error" ? "var(--error)" : "var(--success)",
-              fontSize: "13.5px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <span>{feedback.message}</span>
+          <div className={`sd-alert-banner ${feedback.type}`} role="alert" style={{ marginBottom: "20px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: 1 }}>
+              {feedback.type === "success" ? (
+                <CheckCircle2 size={16} color="var(--success, #287A45)" />
+              ) : (
+                <AlertCircle size={16} color="var(--error, #B93838)" />
+              )}
+              <span>{feedback.message}</span>
+              {feedback.action && (
+                <button
+                  type="button"
+                  onClick={feedback.action.onClick}
+                  style={{
+                    marginLeft: "8px",
+                    textDecoration: "underline",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    fontWeight: 600,
+                    color: "inherit",
+                  }}
+                >
+                  {feedback.action.label} →
+                </button>
+              )}
+            </div>
             <button
               type="button"
               onClick={() => setFeedback(null)}
-              style={{ background: "none", border: "none", cursor: "pointer", color: "inherit" }}
+              style={{ background: "none", border: "none", cursor: "pointer", color: "inherit", fontWeight: 600 }}
+              aria-label="Dismiss feedback"
             >
               <X size={15} />
             </button>
           </div>
         )}
 
+        {/* Page Header */}
         <PageHeader
-          eyebrow="ACADEMIC CYCLE 2026–2027"
-          title="Placement Drives & Opportunities"
-          description="Explore active recruitment drives scheduled for this placement session. Check detailed job requirements, verify minimum eligibility thresholds, and apply directly."
+          title="Placement Opportunities"
+          subtitle="Explore published recruitment drives, verify your academic eligibility, and apply directly."
         />
 
-        {/* Filter Controls Row */}
-        <div className="drives-controls-row">
-          <div className="drives-filter-tabs">
+        {/* Filters and Search Bar */}
+        <div className="drives-controls-panel">
+          <div className="filter-pill-group">
             {filterTabs.map((tab) => (
               <button
                 key={tab.id}
                 type="button"
-                className={`drives-filter-btn ${
-                  selectedFilter === tab.id ? "active" : ""
-                }`}
+                className={`filter-pill-btn ${selectedFilter === tab.id ? "active" : ""}`}
                 onClick={() => setSelectedFilter(tab.id)}
               >
                 {tab.label}
@@ -291,54 +198,70 @@ export default function PlacementDrives() {
             ))}
           </div>
 
-          <div className="drives-search-box">
-            <Search size={14} className="drives-search-icon" />
-            <input
-              type="search"
-              className="drives-search-input"
-              placeholder="Filter by title, company, or skill..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <button
+              type="button"
+              className="btn-secondary btn-sm"
+              onClick={fetchDrives}
+              title="Refresh drives from server"
+            >
+              <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
+              <span>Refresh</span>
+            </button>
+            <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
+              Showing {filteredDrives.length} of {drives.length} drives
+            </span>
           </div>
         </div>
 
-        {/* Grid of Placement Drives */}
-        {filteredDrives.length === 0 ? (
+        {/* Loading / Error States */}
+        {loading && drives.length === 0 ? (
+          <div style={{ padding: "60px", textAlign: "center", color: "var(--text-secondary)" }}>
+            <RefreshCw size={26} className="animate-spin" style={{ margin: "0 auto 12px" }} />
+            <p>Loading published recruitment drives from database...</p>
+          </div>
+        ) : error && drives.length === 0 ? (
+          <EmptyState
+            title="Failed to load placement drives"
+            description={error}
+            action={
+              <button type="button" className="btn-secondary btn-sm" onClick={fetchDrives}>
+                Retry Loading
+              </button>
+            }
+          />
+        ) : filteredDrives.length === 0 ? (
           <EmptyState
             title="No placement drives found"
-            description="No drives match your current filter criteria. You can clear the filters to see all available opportunities."
+            description={
+              selectedFilter === "eligible"
+                ? "No open drives currently match your academic CGPA or backlog criteria."
+                : "Try clearing your search query or selecting a different filter category."
+            }
             action={
               <button
                 type="button"
                 className="btn-secondary btn-sm"
-                onClick={handleResetFilters}
+                onClick={() => {
+                  setSearch("");
+                  setSelectedFilter("all");
+                }}
               >
-                <RotateCcw size={13} style={{ marginRight: "6px" }} />
-                <span>Reset Filters</span>
+                Reset Filters
               </button>
             }
           />
         ) : (
-          <div className="drives-grid-list">
-            {filteredDrives.map((drive) => {
-              const hasApplied = applications.some(
-                (app) => app.driveId === drive.id || app.company === drive.company
-              );
-              const isEligible =
-                profile.cgpa >= (drive.minCgpa || 7.0) &&
-                profile.backlogs <= (drive.maxBacklogs || 0);
-
-              return (
-                <PlacementDriveCard
-                  key={drive.id}
-                  drive={drive}
-                  hasApplied={hasApplied}
-                  isEligible={isEligible}
-                  onApply={handleApply}
-                />
-              );
-            })}
+          <div className="drives-listing-grid">
+            {filteredDrives.map((drive) => (
+              <PlacementDriveCard
+                key={drive.id}
+                drive={drive}
+                hasApplied={drive.hasApplied}
+                isEligible={drive.isEligible}
+                onApply={() => handleApply(drive)}
+              />
+            ))}
           </div>
         )}
       </div>

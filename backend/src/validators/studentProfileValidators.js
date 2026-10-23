@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator');
 
 const allowedProfileFields = [
   'studentId',
+  'rollNo',
   'phone',
   'department',
   'degree',
@@ -10,8 +11,28 @@ const allowedProfileFields = [
   'currentSemester',
   'cgpa',
   'backlogCount',
+  'historicalBacklogs',
   'skills',
+  'fullName',
+  'firstName',
+  'middleName',
+  'lastName',
+  'collegeName',
+  'prn',
+  'personalEmail',
+  'institutionalEmail',
+  'alternatePhone',
+  'address',
+  'socialLinks',
+  'qualifications',
+  'categorizedSkills',
+  'projects',
+  'certifications',
+  'resume',
+  'accountVerificationStatus',
+  'placementVerificationStatus',
 ];
+
 
 function rejectUnknownProfileFields(req, res, next) {
   const input = req.body;

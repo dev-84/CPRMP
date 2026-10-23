@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   Send,
@@ -10,6 +10,7 @@ import {
   ChevronRight,
   ExternalLink,
   Briefcase,
+  RefreshCw,
 } from "lucide-react";
 import AppLayout from "../components/ui/AppLayout.jsx";
 import {
@@ -20,77 +21,43 @@ import {
   CompanyLogo,
   EmptyState,
 } from "../components/ui/EditorialComponents.jsx";
+import { studentApi } from "../api/studentApi.js";
 import "./MyApplications.css";
 
-const BASE_APPLICATIONS = [
-  {
-    id: "app-101",
-    driveId: "drv-006",
-    company: "TCS Digital",
-    logo: "TCS",
-    role: "System Architect Trainee",
-    appliedDate: "28 Sep 2026",
-    status: "Offer Received",
-    milestone: "Institutional LOI Signed",
-    lastUpdated: "14 Oct 2026",
-  },
-  {
-    id: "app-102",
-    driveId: "drv-002",
-    company: "Goldman Sachs",
-    logo: "GS",
-    role: "Engineering Analyst (Core Systems)",
-    appliedDate: "18 Oct 2026",
-    status: "Shortlisted",
-    milestone: "CoderPad Technical Round scheduled",
-    lastUpdated: "20 Oct 2026",
-  },
-  {
-    id: "app-103",
-    driveId: "drv-005",
-    company: "Deloitte USI",
-    logo: "DT",
-    role: "Associate Analyst (Tech Consulting)",
-    appliedDate: "12 Oct 2026",
-    status: "Under Review",
-    milestone: "Talent Acquisition Dossier verification",
-    lastUpdated: "19 Oct 2026",
-  },
-  {
-    id: "app-104",
-    driveId: "drv-001",
-    company: "Microsoft IDC",
-    logo: "MS",
-    role: "Software Engineer — Cloud & AI Infrastructure",
-    appliedDate: "16 Oct 2026",
-    status: "Under Review",
-    milestone: "Codility Assessment scheduled for 02 Nov",
-    lastUpdated: "21 Oct 2026",
-  },
-];
-
-function readSaved(key, fallback) {
-  try {
-    const v = localStorage.getItem(key);
-    return v ? JSON.parse(v) : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
 export default function MyApplications() {
-  const [applications] = useState(() =>
-    readSaved("cprmp_applications", BASE_APPLICATIONS)
-  );
+  const [loading, setLoading] = useState(true);
+  const [applications, setApplications] = useState([]);
+  const [summary, setSummary] = useState({});
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
+  const loadApplications = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await studentApi.getApplications();
+      setApplications(data.applications || []);
+      setSummary(data.summary || {});
+    } catch (err) {
+      console.error("Failed to load applications:", err);
+      setError(err.message || "Failed to load submitted applications.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadApplications();
+  }, [loadApplications]);
+
   const filterTabs = [
     { id: "all", label: "All Applications" },
-    { id: "under review", label: "Under Review" },
+    { id: "under_review", label: "Under Screening" },
     { id: "shortlisted", label: "Shortlisted" },
-    { id: "offer", label: "Offers / Selected" },
-    { id: "closed", label: "Closed / Archived" },
+    { id: "interview", label: "Interviews" },
+    { id: "selected", label: "Offers / Selected" },
+    { id: "rejected", label: "Closed / Not Selected" },
   ];
 
   const filteredApps = useMemo(() => {
@@ -101,16 +68,18 @@ export default function MyApplications() {
         app.company.toLowerCase().includes(q) ||
         app.role.toLowerCase().includes(q);
 
-      const statusNorm = app.status.toLowerCase();
+      const statusNorm = (app.status || "").toLowerCase();
       let matchesStatus = true;
-      if (statusFilter === "under review") {
-        matchesStatus = statusNorm.includes("review") || statusNorm.includes("applied");
+      if (statusFilter === "under_review") {
+        matchesStatus = statusNorm === "under_review" || statusNorm === "submitted";
       } else if (statusFilter === "shortlisted") {
-        matchesStatus = statusNorm.includes("shortlist") || statusNorm.includes("interview");
-      } else if (statusFilter === "offer") {
-        matchesStatus = statusNorm.includes("offer") || statusNorm.includes("select");
-      } else if (statusFilter === "closed") {
-        matchesStatus = statusNorm.includes("reject") || statusNorm.includes("withdrawn");
+        matchesStatus = statusNorm === "shortlisted";
+      } else if (statusFilter === "interview") {
+        matchesStatus = statusNorm === "interview";
+      } else if (statusFilter === "selected") {
+        matchesStatus = statusNorm === "selected";
+      } else if (statusFilter === "rejected") {
+        matchesStatus = statusNorm === "rejected" || statusNorm === "withdrawn";
       }
 
       return matchesSearch && matchesStatus;
@@ -120,11 +89,11 @@ export default function MyApplications() {
   const stats = useMemo(() => {
     return {
       total: applications.length,
-      review: applications.filter((a) => a.status.toLowerCase().includes("review") || a.status.toLowerCase().includes("applied")).length,
-      shortlisted: applications.filter((a) => a.status.toLowerCase().includes("shortlist") || a.status.toLowerCase().includes("interview")).length,
-      offers: applications.filter((a) => a.status.toLowerCase().includes("offer") || a.status.toLowerCase().includes("select")).length,
+      review: (summary.submitted || 0) + (summary.underReview || 0),
+      shortlisted: (summary.shortlisted || 0) + (summary.interview || 0),
+      offers: summary.selected || 0,
     };
-  }, [applications]);
+  }, [applications, summary]);
 
   return (
     <AppLayout
@@ -146,7 +115,7 @@ export default function MyApplications() {
           <MetricItem
             label="Total Submitted"
             value={stats.total}
-            detail="Applications in 2026–2027 cycle"
+            detail="Applications in current placement cycle"
             icon={Send}
           />
           <MetricItem
@@ -162,9 +131,9 @@ export default function MyApplications() {
             icon={Calendar}
           />
           <MetricItem
-            label="Offers Received"
+            label="Offers Extended"
             value={stats.offers}
-            detail="Official institutional offers"
+            detail="Official campus selection offers"
             icon={CheckCircle2}
           />
         </MetricRow>
@@ -178,19 +147,18 @@ export default function MyApplications() {
             flexWrap: "wrap",
             gap: "12px",
             background: "var(--surface)",
-            padding: "14px 20px",
-            border: "1px solid var(--border)",
+            padding: "16px 20px",
             borderRadius: "8px",
+            border: "1px solid var(--border)",
+            marginBottom: "24px",
           }}
         >
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          <div className="filter-pill-group">
             {filterTabs.map((tab) => (
               <button
                 key={tab.id}
                 type="button"
-                className={`drives-filter-btn ${
-                  statusFilter === tab.id ? "active" : ""
-                }`}
+                className={`filter-pill-btn ${statusFilter === tab.id ? "active" : ""}`}
                 onClick={() => setStatusFilter(tab.id)}
               >
                 {tab.label}
@@ -198,125 +166,125 @@ export default function MyApplications() {
             ))}
           </div>
 
-          <div style={{ position: "relative", minWidth: "220px" }}>
-            <Search
-              size={14}
-              style={{
-                position: "absolute",
-                left: "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                color: "var(--text-muted)",
-              }}
-            />
-            <input
-              type="search"
-              placeholder="Filter by company or role..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="topbar-search-input"
-            />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <button
+              type="button"
+              className="btn-secondary btn-sm"
+              onClick={loadApplications}
+              title="Refresh applications"
+            >
+              <RefreshCw size={13} className={loading ? "animate-spin" : ""} />
+              <span>Refresh</span>
+            </button>
+            <span style={{ fontSize: "12.5px", color: "var(--text-muted)" }}>
+              {filteredApps.length} of {applications.length} applications
+            </span>
           </div>
         </div>
 
-        {/* Data Table for Desktop */}
-        {filteredApps.length === 0 ? (
+        {/* Loading and Empty States */}
+        {loading && applications.length === 0 ? (
+          <div style={{ padding: "60px", textAlign: "center", color: "var(--text-secondary)" }}>
+            <RefreshCw size={26} className="animate-spin" style={{ margin: "0 auto 12px" }} />
+            <p>Loading your submitted placement applications...</p>
+          </div>
+        ) : error && applications.length === 0 ? (
           <EmptyState
-            title="No applications match your filter"
-            description="You currently have no applications matching this criteria. Browse available drives to submit new applications."
+            title="Failed to load applications"
+            description={error}
             action={
-              <Link to="/student/placement-drives" className="btn-primary btn-sm">
-                Browse Placement Drives
-              </Link>
+              <button type="button" className="btn-secondary btn-sm" onClick={loadApplications}>
+                Retry Loading
+              </button>
+            }
+          />
+        ) : filteredApps.length === 0 ? (
+          <EmptyState
+            title="No applications match the current filter"
+            description={
+              applications.length === 0
+                ? "You have not submitted any placement drive applications yet. Browse open drives to begin."
+                : "Try selecting 'All Applications' or clearing your search term."
+            }
+            action={
+              applications.length === 0 ? (
+                <Link to="/student/drives" className="btn-primary btn-sm">
+                  Explore Placement Drives
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  className="btn-secondary btn-sm"
+                  onClick={() => {
+                    setSearch("");
+                    setStatusFilter("all");
+                  }}
+                >
+                  Reset Filters
+                </button>
+              )
             }
           />
         ) : (
-          <>
-            <div className="applications-table-wrapper">
-              <table className="applications-data-table">
-                <thead>
-                  <tr>
-                    <th>Company</th>
-                    <th>Job Title</th>
-                    <th>Application Date</th>
-                    <th>Current Status</th>
-                    <th>Milestone / Activity</th>
-                    <th style={{ textAlign: "right" }}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredApps.map((app) => (
-                    <tr key={app.id}>
-                      <td>
-                        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                          <CompanyLogo name={app.company} logo={app.logo} />
-                          <strong style={{ fontWeight: 600 }}>{app.company}</strong>
+          <div className="applications-table-wrapper">
+            <table className="editorial-table">
+              <thead>
+                <tr>
+                  <th>Recruiter & Organization</th>
+                  <th>Position / Role</th>
+                  <th>Applied On</th>
+                  <th>Application Status</th>
+                  <th>Current Milestone</th>
+                  <th style={{ textAlign: "right" }}>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredApps.map((app) => (
+                  <tr key={app.id}>
+                    <td>
+                      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                        <CompanyLogo name={app.company} logo={app.logo} />
+                        <div>
+                          <div style={{ fontWeight: 600, color: "var(--text-primary)" }}>{app.company}</div>
+                          <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>
+                            CTC: {app.package}
+                          </div>
                         </div>
-                      </td>
-                      <td>
-                        <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>
-                          {app.role}
-                        </span>
-                      </td>
-                      <td>
-                        <span style={{ color: "var(--text-secondary)", fontSize: "12.5px" }}>
-                          {app.appliedDate}
-                        </span>
-                      </td>
-                      <td>
-                        <ApplicationStatusBadge status={app.status} />
-                      </td>
-                      <td>
-                        <span style={{ fontSize: "12.5px", color: "var(--text-secondary)" }}>
-                          {app.milestone || "Awaiting recruiter evaluation"}
-                        </span>
-                      </td>
-                      <td style={{ textAlign: "right" }}>
-                        <Link
-                          to={`/student/application-tracking/${app.id || app.driveId}`}
-                          className="btn-secondary btn-sm"
-                        >
-                          <span>Track</span>
-                          <ChevronRight size={13} />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile Cards */}
-            <div className="applications-mobile-cards">
-              {filteredApps.map((app) => (
-                <div key={app.id} className="app-mobile-card">
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                      <CompanyLogo name={app.company} logo={app.logo} />
-                      <div>
-                        <strong style={{ display: "block", fontSize: "14px" }}>{app.company}</strong>
-                        <span style={{ fontSize: "12px", color: "var(--text-secondary)" }}>{app.role}</span>
                       </div>
-                    </div>
-                    <ApplicationStatusBadge status={app.status} />
-                  </div>
-
-                  <div style={{ fontSize: "12px", color: "var(--text-secondary)", borderTop: "1px solid var(--border)", paddingTop: "10px" }}>
-                    <div>Applied: <strong>{app.appliedDate}</strong></div>
-                    <div style={{ marginTop: "4px" }}>{app.milestone}</div>
-                  </div>
-
-                  <Link
-                    to={`/student/application-tracking/${app.id || app.driveId}`}
-                    className="btn-secondary btn-sm"
-                    style={{ textAlign: "center" }}
-                  >
-                    View Application Timeline
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </>
+                    </td>
+                    <td>
+                      <div style={{ fontWeight: 500, color: "var(--text-primary)" }}>{app.role}</div>
+                      {app.resumeName && (
+                        <div style={{ fontSize: "11px", color: "var(--text-muted)" }}>
+                          Attached: {app.resumeName}
+                        </div>
+                      )}
+                    </td>
+                    <td style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
+                      {app.appliedDate || "Recently"}
+                    </td>
+                    <td>
+                      <ApplicationStatusBadge status={app.status} />
+                    </td>
+                    <td>
+                      <span style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
+                        {app.milestone || "Screening in Progress"}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: "right" }}>
+                      <Link
+                        to={`/student/applications/${app.id}`}
+                        className="btn-secondary btn-sm"
+                      >
+                        <span>View Journey</span>
+                        <ChevronRight size={13} />
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </AppLayout>

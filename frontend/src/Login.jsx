@@ -93,11 +93,19 @@ function Login() {
         }),
       });
 
-      const result = await response.json();
+      let result = null;
+      try {
+        result = await response.json();
+      } catch {
+        if (!response.ok) {
+          throw new Error("Cannot connect to the server. Check that the backend is running on port 5000.");
+        }
+        throw new Error("Unable to parse server response.");
+      }
 
       if (!response.ok) {
         throw new Error(
-          result.message || "Unable to sign in. Please try again.",
+          result?.message || "Unable to sign in. Please try again.",
         );
       }
 
@@ -134,8 +142,15 @@ function Login() {
       });
 
     } catch (requestError) {
+      const isConnectionError =
+        requestError instanceof TypeError ||
+        (requestError.message &&
+          (requestError.message.includes("fetch") ||
+            requestError.message.includes("Unexpected end of JSON") ||
+            requestError.message.includes("Failed to execute 'json'")));
+
       setError(
-        requestError instanceof TypeError
+        isConnectionError
           ? "Cannot connect to the server. Check that the backend is running."
           : requestError.message,
       );

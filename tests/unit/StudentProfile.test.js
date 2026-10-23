@@ -154,4 +154,44 @@ describe('StudentProfile model', () => {
 
     expect(profile.skills).toEqual(['JavaScript', 'React']);
   });
+
+  test('validates extended qualifications, projects, and certifications', async () => {
+    const profile = createProfile({
+      fullName: 'Aryan Sharma',
+      prn: '2023MCA042',
+      personalEmail: 'aryan.sharma@example.com',
+      qualifications: [
+        {
+          id: 'qual-10th',
+          level: '10th',
+          title: 'Class X',
+          score: 94.2,
+          scoreType: 'percentage',
+          status: 'completed',
+        },
+      ],
+      projects: [
+        {
+          id: 'proj-1',
+          title: 'Campus Portal',
+          technologies: ['React', 'Node.js'],
+        },
+      ],
+      certifications: [
+        {
+          id: 'cert-1',
+          name: 'AWS Certified Cloud Practitioner',
+          issuingOrganization: 'Amazon Web Services',
+        },
+      ],
+    });
+
+    await profile.validate();
+
+    expect(profile.fullName).toBe('Aryan Sharma');
+    expect(profile.qualifications[0].level).toBe('10th');
+    expect(profile.projects[0].title).toBe('Campus Portal');
+    expect(profile.certifications[0].name).toBe('AWS Certified Cloud Practitioner');
+  });
 });
+

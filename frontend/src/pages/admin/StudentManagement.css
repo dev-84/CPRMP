@@ -1,0 +1,318 @@
+/* StudentManagement.css */
+
+.admin-students-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-feedback-banner {
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-size: 13.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feedback-success {
+  background-color: var(--success-soft, #EAF2E7);
+  border: 1px solid #C6E1C9;
+  color: var(--success, #287A45);
+}
+
+.feedback-error {
+  background-color: var(--error-soft, #FDF2F2);
+  border: 1px solid #F5C2C2;
+  color: var(--error, #B93838);
+}
+
+/* Four Primary Summary Cards */
+.admin-student-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.student-summary-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sum-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sum-card-label {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.sum-card-value {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.sum-card-detail {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.sum-card-programs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin: 4px 0;
+}
+
+.sum-program-item {
+  font-size: 12.5px;
+  color: var(--text-primary);
+}
+
+.sum-program-item strong {
+  color: var(--accent);
+  margin-left: 4px;
+}
+
+.sum-more-tag {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--surface-secondary);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* Filter container */
+.admin-filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.admin-search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-filters-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-select-filter {
+  padding: 7px 10px;
+  font-size: 12.5px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--surface);
+  color: var(--text-primary);
+  outline: none;
+  cursor: pointer;
+}
+
+.admin-select-filter:focus {
+  border-color: var(--accent);
+}
+
+.admin-reset-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px 6px;
+}
+
+.student-avatar-initial {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Pagination Bar */
+.admin-pagination-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination-current-page {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Modal */
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(23, 43, 36, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.admin-modal-card {
+  background-color: var(--surface);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalEnter 0.2s ease-out;
+}
+
+@keyframes modalEnter {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.admin-modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.admin-modal-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.admin-modal-subtitle {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  margin: 4px 0 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.modal-close-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--surface-secondary);
+}
+
+.admin-modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-sec-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.info-label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.info-val {
+  font-size: 13.5px;
+  color: var(--text-primary);
+}
+
+.modal-app-list, .modal-placement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-app-item, .modal-placement-item {
+  padding: 12px 14px;
+  background-color: var(--surface-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-modal-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--surface-secondary);
+}

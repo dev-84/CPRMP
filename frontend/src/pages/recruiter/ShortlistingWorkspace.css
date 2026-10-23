@@ -1,0 +1,218 @@
+/* ShortlistingWorkspace.css — CPRMP Editorial Minimal */
+
+.shortlisting-root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Drive Selector */
+.drive-selector-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-selector-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #68766D;
+}
+
+.drive-cards-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.drive-select-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 6px;
+  padding: 12px 16px;
+  min-width: 220px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.drive-select-card:hover {
+  border-color: #3F754B;
+}
+
+.drive-select-card.selected {
+  background-color: #EAF2E7;
+  border-color: #3F754B;
+}
+
+.select-card-title {
+  font-size: 13px;
+  color: #172B24;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.select-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #68766D;
+}
+
+.select-card-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.text-shortlist {
+  color: #3F754B;
+  font-weight: 600;
+}
+
+/* Controls Bar */
+.shortlisting-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.controls-right-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Bulk Floating Bar */
+.bulk-actions-floating-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  border: 1px solid #3F754B;
+  border-radius: 8px;
+  padding: 12px 20px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.2s ease-out;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bulk-selection-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #172B24;
+}
+
+.bulk-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-bulk-shortlist {
+  background-color: #3F754B;
+  color: #FFFFFF;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-bulk-interview {
+  background-color: #4338CA;
+  color: #FFFFFF;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-bulk-reject {
+  background-color: transparent;
+  border: 1px solid #B93838;
+  color: #B93838;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-bulk-clear {
+  background: transparent;
+  border: 1px solid #E5E7E1;
+  color: #68766D;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Table Card */
+.shortlisting-table-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7E1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.shortlisting-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.shortlisting-table th {
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #68766D;
+  background-color: #FAF9F6;
+  border-bottom: 1px solid #E5E7E1;
+  white-space: nowrap;
+}
+
+.shortlisting-table td {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #172B24;
+  border-bottom: 1px solid #E5E7E1;
+  vertical-align: middle;
+}
+
+.shortlisting-table tbody tr:hover {
+  background-color: #FAF9F6;
+}
+
+.shortlisting-table tbody tr.row-selected {
+  background-color: #F4F7F2;
+}
+
+.cgpa-strong {
+  color: #172B24;
+  font-size: 14px;
+}

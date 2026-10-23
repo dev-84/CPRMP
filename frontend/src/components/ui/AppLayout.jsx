@@ -19,6 +19,7 @@ import {
   Users,
   ShieldCheck,
   CheckCircle2,
+  TrendingUp,
 } from "lucide-react";
 import { useAuth } from "../../context/useAuth.js";
 import "./AppLayout.css";
@@ -36,19 +37,20 @@ const studentNavItems = [
 
 const adminNavItems = [
   { label: "Admin Dashboard", path: "/admin", icon: LayoutDashboard },
-  { label: "Student Management", path: "/admin?tab=students", icon: Users },
-  { label: "Company Directory", path: "/admin?tab=companies", icon: Building },
-  { label: "Placement Drives", path: "/admin?tab=drives", icon: Briefcase },
+  { label: "Student Management", path: "/admin/student", icon: Users },
+  { label: "Recruiters Management", path: "/admin/recruiters", icon: Building },
+  { label: "Placement Drives", path: "/admin/drive", icon: Briefcase },
   { label: "Applications", path: "/admin?tab=applications", icon: Send },
   { label: "Placement Records", path: "/admin?tab=records", icon: ShieldCheck },
 ];
 
 const recruiterNavItems = [
   { label: "Recruiter Dashboard", path: "/recruiter", icon: LayoutDashboard },
-  { label: "Company Profile", path: "/recruiter?tab=company", icon: Building },
-  { label: "Our Placement Drives", path: "/recruiter?tab=drives", icon: Briefcase },
-  { label: "Applicant Review", path: "/recruiter?tab=applicants", icon: Users },
-  { label: "Hiring Outcomes", path: "/recruiter?tab=outcomes", icon: CheckCircle2 },
+  { label: "Company Profile", path: "/recruiter/company", icon: Building },
+  { label: "Placement Drives", path: "/recruiter/drives", icon: Briefcase },
+  { label: "Applicants", path: "/recruiter/applicants", icon: Users },
+  { label: "Shortlisting", path: "/recruiter/shortlisting", icon: UserCheck },
+  { label: "Recruitment Status", path: "/recruiter/recruitment-status", icon: TrendingUp },
 ];
 
 export default function AppLayout({
@@ -88,7 +90,52 @@ export default function AppLayout({
       const [path, query] = itemPath.split("?");
       return location.pathname === path && location.search === `?${query}`;
     }
-    return location.pathname === itemPath;
+    if (location.pathname === itemPath) {
+      if (!location.search || location.search === "?tab=overview") {
+        return true;
+      }
+      return false;
+    }
+    if (itemPath === "/admin/student" && (location.pathname === "/admin/student" || location.pathname === "/admin/students")) {
+      return true;
+    }
+    if (itemPath === "/admin/recruiters" && (location.pathname === "/admin/recruiters" || location.pathname === "/admin/recruiter")) {
+      return true;
+    }
+    if (itemPath === "/admin/drive" && (location.pathname === "/admin/drive" || location.pathname === "/admin/drives")) {
+      return true;
+    }
+    if (itemPath === "/recruiter/company" && (location.pathname === "/recruiter/company" || location.search === "?tab=company")) {
+      return true;
+    }
+    if (itemPath === "/recruiter/drives" && (location.pathname.startsWith("/recruiter/drives") || location.search === "?tab=drives")) {
+      return true;
+    }
+    if (itemPath === "/recruiter/applicants" && (location.pathname.startsWith("/recruiter/applicants") || location.search === "?tab=applicants")) {
+      return true;
+    }
+    if (itemPath === "/recruiter/shortlisting" && location.pathname === "/recruiter/shortlisting") {
+      return true;
+    }
+    if (itemPath === "/recruiter/recruitment-status" && (location.pathname === "/recruiter/recruitment-status" || location.search === "?tab=outcomes")) {
+      return true;
+    }
+    if (itemPath === "/student/placement-drives" && (location.pathname === "/student/placement-drives" || location.pathname === "/student/drives" || location.pathname.startsWith("/student/drives/") || location.pathname.startsWith("/student/drive-details"))) {
+      return true;
+    }
+    if (itemPath === "/student/applications" && (location.pathname === "/student/applications" || location.pathname.startsWith("/student/applications/") || location.pathname.startsWith("/student/application-tracking/"))) {
+      return true;
+    }
+    if (itemPath === "/student/ai-resume-matching" && (location.pathname === "/student/ai-resume-matching" || location.pathname === "/student/ai-matching")) {
+      return true;
+    }
+    if (itemPath === "/student/profile" && (location.pathname === "/student/profile" || (location.pathname.startsWith("/student/profile/") && !location.pathname.includes("edit")))) {
+      return true;
+    }
+    if (itemPath === "/student/edit-profile" && (location.pathname === "/student/edit-profile" || location.pathname === "/student/profile/edit")) {
+      return true;
+    }
+    return false;
   };
 
   return (

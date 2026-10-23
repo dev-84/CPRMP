@@ -33,12 +33,61 @@ const placementDriveSchema = new mongoose.Schema(
     salary: {
       type: mongoose.Schema.Types.Mixed,
     },
+    ctcMin: {
+      type: Number,
+      min: 0,
+    },
+    ctcMax: {
+      type: Number,
+      min: 0,
+    },
+    currency: {
+      type: String,
+      default: 'INR',
+    },
+    openings: {
+      type: Number,
+      min: 1,
+    },
     applicationDeadline: {
       type: Date,
       required: true,
     },
     driveDate: {
       type: Date,
+    },
+    responsibilities: {
+      type: [String],
+      default: [],
+    },
+    requiredSkills: {
+      type: [String],
+      default: [],
+    },
+    eligibleDegrees: {
+      type: [String],
+      default: [],
+    },
+    eligibleDepartments: {
+      type: [String],
+      default: [],
+    },
+    graduationYears: {
+      type: [Number],
+      default: [],
+    },
+    minCGPA: {
+      type: Number,
+      min: 0,
+    },
+    maxActiveBacklogs: {
+      type: Number,
+      min: 0,
+      default: 0,
+    },
+    rounds: {
+      type: [String],
+      default: [],
     },
     status: {
       type: String,

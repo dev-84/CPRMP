@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   History,
@@ -9,6 +9,8 @@ import {
   Building2,
   Calendar,
   Search,
+  RefreshCw,
+  Briefcase,
 } from "lucide-react";
 import AppLayout from "../components/ui/AppLayout.jsx";
 import {
@@ -21,62 +23,34 @@ import {
   SecondaryButton,
   EmptyState,
 } from "../components/ui/EditorialComponents.jsx";
+import { studentApi } from "../api/studentApi.js";
 import "./PlacementHistory.css";
 
-const HISTORICAL_RECORDS = [
-  {
-    id: "DRV-2026-TCS-019",
-    company: "TCS Digital",
-    logo: "TCS",
-    role: "System Architect Trainee",
-    division: "Digital Enterprise Core",
-    salary: 7.5,
-    package: "₹7.50 LPA",
-    date: "14 Oct 2026",
-    status: "Selected & Accepted",
-    outcome: "Letter of Intent Signed (#LOI-8842)",
-  },
-  {
-    id: "DRV-2026-DEL-041",
-    company: "Deloitte USI",
-    logo: "DT",
-    role: "Associate Analyst (Consulting)",
-    division: "Technology Advisory",
-    salary: 14.2,
-    package: "₹14.20 LPA",
-    date: "18 Oct 2026",
-    status: "Under Review",
-    outcome: "Technical Assessment completed",
-  },
-  {
-    id: "DRV-2026-WIP-011",
-    company: "Wipro Technologies",
-    logo: "WIP",
-    role: "Project Engineer (Turbo)",
-    division: "Cloud Solutions",
-    salary: 6.5,
-    package: "₹6.50 LPA",
-    date: "02 Oct 2026",
-    status: "Withdrawn / Superseded",
-    outcome: "Higher Tier Offer Accepted",
-  },
-  {
-    id: "DRV-2026-CTS-008",
-    company: "Cognizant Technology Solutions",
-    logo: "CTS",
-    role: "Software Specialist (GenC Next)",
-    division: "Cloud & DevOps",
-    salary: 6.75,
-    package: "₹6.75 LPA",
-    date: "25 Sep 2026",
-    status: "Not Selected",
-    outcome: "Technical round cutoff not met",
-  },
-];
-
 export default function PlacementHistory() {
-  const [records] = useState(HISTORICAL_RECORDS);
+  const [loading, setLoading] = useState(true);
+  const [records, setRecords] = useState([]);
+  const [summary, setSummary] = useState({});
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
+
+  const loadHistory = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await studentApi.getPlacementHistory();
+      setRecords(data.records || []);
+      setSummary(data.summary || {});
+    } catch (err) {
+      console.error("Failed to load placement history:", err);
+      setError(err.message || "Failed to load placement history records.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadHistory();
+  }, [loadHistory]);
 
   const filteredRecords = useMemo(() => {
     if (!search.trim()) return records;
@@ -85,17 +59,19 @@ export default function PlacementHistory() {
       (r) =>
         r.company.toLowerCase().includes(q) ||
         r.role.toLowerCase().includes(q) ||
-        r.id.toLowerCase().includes(q)
+        (r.division && r.division.toLowerCase().includes(q)) ||
+        (r.id && r.id.toLowerCase().includes(q))
     );
   }, [records, search]);
 
   const handleDownloadCsv = () => {
-    const headers = ["Company", "Drive ID", "Role", "Division", "CTC", "Date", "Status", "Outcome"];
+    if (!filteredRecords.length) return;
+    const headers = ["Company", "Record ID", "Role", "Division", "CTC Package", "Date", "Status", "Outcome"];
     const rows = filteredRecords.map((r) => [
       r.company,
       r.id,
       r.role,
-      r.division,
+      r.division || "Technology",
       r.package,
       r.date,
       r.status,
@@ -109,7 +85,7 @@ export default function PlacementHistory() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "Placement_History_Transcript_2026_2027.csv");
+    link.setAttribute("download", `Placement_History_Transcript_${new Date().getFullYear()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -127,100 +103,128 @@ export default function PlacementHistory() {
         <PageHeader
           eyebrow="INSTITUTIONAL RECORD"
           title="Placement History & Outcomes"
-          description="Official record of campus recruitment participation, evaluations, offers received, and institutional acceptances for the 2026–2027 academic session."
+          description="Official record of campus recruitment participation, evaluations, offers received, and institutional acceptances."
           actions={
-            <SecondaryButton onClick={handleDownloadCsv}>
-              <Download size={14} />
-              <span>Export CSV Transcript</span>
-            </SecondaryButton>
+            records.length > 0 && (
+              <SecondaryButton onClick={handleDownloadCsv}>
+                <Download size={14} />
+                <span>Export CSV Transcript</span>
+              </SecondaryButton>
+            )
           }
         />
 
         {/* Overview Metric Row */}
         <MetricRow>
           <MetricItem
-            label="Active Offer Status"
-            value="Selected & Accepted"
-            detail="TCS Digital (Digital Core)"
+            label="Placement Standing"
+            value={summary.isPlaced ? "Placed & Offered" : "In Placement Cycle"}
+            detail={summary.totalOffers > 0 ? `${summary.totalOffers} Official Offer(s) Extended` : "Active participation"}
             icon={Award}
           />
           <MetricItem
-            label="Highest Package Accepted"
-            value="₹7.50 LPA"
-            detail="Digital Grade Cadre"
+            label="Highest Package Offered"
+            value={summary.highestPackage || "N/A"}
+            detail={summary.isPlaced ? "Annual Cost to Company" : "Pending final selections"}
             icon={TrendingUp}
           />
           <MetricItem
-            label="Total Drives Attended"
+            label="Total Placement Records"
             value={records.length}
-            detail="Participation in 2026–2027 cycle"
+            detail="Official entries in university ledger"
             icon={Calendar}
           />
           <MetricItem
-            label="College Clearance"
-            value="Approved"
-            detail="Official LOI lodged with TPO"
+            label="Institutional Status"
+            value={summary.isPlaced ? "Cleared & Verified" : "Active Candidate"}
+            detail="Audited by Training & Placement Officer"
             icon={CheckCircle2}
           />
         </MetricRow>
 
-        {/* Search & Table */}
-        {filteredRecords.length === 0 ? (
+        {/* Search & Table / Loading / Empty */}
+        {loading && records.length === 0 ? (
+          <div style={{ padding: "80px", textAlign: "center", color: "var(--text-secondary)" }}>
+            <RefreshCw size={26} className="animate-spin" style={{ margin: "0 auto 16px" }} />
+            <p>Loading verified placement history and official outcomes from ledger...</p>
+          </div>
+        ) : error && records.length === 0 ? (
           <EmptyState
-            title="No records found"
-            description="No participation history matches your search query."
+            title="Failed to load placement history"
+            description={error}
+            action={
+              <button type="button" className="btn-secondary btn-sm" onClick={loadHistory}>
+                Retry Loading
+              </button>
+            }
+          />
+        ) : records.length === 0 ? (
+          <EmptyState
+            title="No placement records yet"
+            description="Your placement history will be updated here once recruitment outcomes and official offers of intent are finalized by recruiters."
+            action={
+              <Link to="/student/drives" className="btn-primary btn-sm">
+                Browse Active Placement Drives
+              </Link>
+            }
+          />
+        ) : filteredRecords.length === 0 ? (
+          <EmptyState
+            title="No records match your search"
+            description="Try clearing your search query to view all official placement history entries."
+            action={
+              <button type="button" className="btn-secondary btn-sm" onClick={() => setSearch("")}>
+                Clear Search
+              </button>
+            }
           />
         ) : (
           <div className="history-table-container">
             <table className="history-table">
               <thead>
                 <tr>
-                  <th>Company & Drive ID</th>
+                  <th>Company & Identification</th>
                   <th>Designation / Role</th>
-                  <th>Division</th>
-                  <th>Compensation (CTC)</th>
-                  <th>Date</th>
+                  <th>Division / Sector</th>
+                  <th>CTC Package</th>
+                  <th>Outcome Date</th>
                   <th>Recruitment Status</th>
                   <th>Official Outcome</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredRecords.map((record) => (
-                  <tr key={record.id}>
+                {filteredRecords.map((r) => (
+                  <tr key={r.id}>
                     <td>
-                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                        <CompanyLogo name={record.company} logo={record.logo} />
+                      <div className="company-info-cell">
+                        <CompanyLogo name={r.company} logo={r.logo} />
                         <div>
-                          <strong style={{ fontWeight: 600 }}>{record.company}</strong>
-                          <span style={{ display: "block", fontSize: "11px", color: "var(--text-muted)" }}>
-                            {record.id}
-                          </span>
+                          <div className="company-name">{r.company}</div>
+                          <div className="drive-code">Ref #{r.id.slice(-6).toUpperCase()}</div>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <span style={{ fontWeight: 500, color: "var(--text-primary)" }}>
-                        {record.role}
+                      <div className="role-title">{r.role}</div>
+                    </td>
+                    <td>
+                      <span className="division-badge">{r.division || "Technology"}</span>
+                    </td>
+                    <td>
+                      <div className="package-val" style={{ color: "var(--accent)", fontWeight: 600 }}>
+                        {r.package}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="date-val">{r.date}</div>
+                    </td>
+                    <td>
+                      <ApplicationStatusBadge status={r.status.includes("Offer") || r.status.includes("Select") ? "Selected" : r.status} />
+                    </td>
+                    <td>
+                      <span className="outcome-text" style={{ fontSize: "12px", color: "var(--text-secondary)" }}>
+                        {r.outcome}
                       </span>
-                    </td>
-                    <td>
-                      <span style={{ color: "var(--text-secondary)", fontSize: "12.5px" }}>
-                        {record.division}
-                      </span>
-                    </td>
-                    <td>
-                      <strong style={{ color: "var(--accent)" }}>{record.package}</strong>
-                    </td>
-                    <td>
-                      <span style={{ color: "var(--text-secondary)", fontSize: "12.5px" }}>
-                        {record.date}
-                      </span>
-                    </td>
-                    <td>
-                      <ApplicationStatusBadge status={record.status} />
-                    </td>
-                    <td>
-                      <span className="history-outcome-badge">{record.outcome}</span>
                     </td>
                   </tr>
                 ))}
